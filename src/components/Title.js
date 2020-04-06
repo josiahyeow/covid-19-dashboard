@@ -13,7 +13,7 @@ const Text = styled.h1`
 const Title = () => {
   return (
     <Welcome>
-      <Text>COVID-19</Text>
+      <Text>COVID-19 😷 🇦🇺 </Text>
     </Welcome>
   )
 }

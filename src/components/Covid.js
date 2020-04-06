@@ -57,7 +57,7 @@ const Covid = () => {
   const { cases, todayCases, deaths, recovered, active, countryInfo } = data
 
   return (
-    <Card title={'COVID-19'}>
+    <Card title={'Australia'}>
       <Statuses>
         <Flag src={countryInfo.flag} />
         <Status>

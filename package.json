@@ -1,6 +1,6 @@
 {
-  "name": "good-morning-dashboard",
-  "homepage": "https://josiahyeow.github.io/good-morning-dashboard",
+  "name": "covid-19-dashboard",
+  "homepage": "https://josiahyeow.github.io/covid-19-dashboard",
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "format": "prettier --write .",
