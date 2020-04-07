@@ -8,7 +8,7 @@ import CovidHistory from './CovidHistory'
 const Statuses = styled.div`
   display: flex;
   flex-wrap: wrap;
-  max-width: 24rem;
+  width: 24rem;
 `
 
 const Status = styled.div`
@@ -24,6 +24,10 @@ const Label = styled.span`
 const Data = styled.span`
   color: ${({ color }) => color};
   font-size: 2rem;
+`
+
+const ChartContainer = styled.div`
+  max-height: 16rem;
 `
 
 const getFilename = (offset = 0) => {
@@ -101,7 +105,9 @@ const CovidState = ({ state }) => {
           <Data color={'#575757'}>{data ? data.deaths : '-'}</Data>
         </Status>
       </Statuses>
-      <CovidHistory state={state} />
+      <ChartContainer>
+        <CovidHistory state={state} />
+      </ChartContainer>
     </Card>
   )
 }
