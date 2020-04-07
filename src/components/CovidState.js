@@ -8,7 +8,6 @@ import CovidHistory from './CovidHistory'
 const Statuses = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 24rem;
 `
 
 const Status = styled.div`
