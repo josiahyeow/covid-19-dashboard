@@ -11,7 +11,7 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 1.5rem;
+  padding: 1rem;
 `
 
 const Profile = styled.div`

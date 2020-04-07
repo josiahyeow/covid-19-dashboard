@@ -11,7 +11,7 @@ const AppContainer = styled.div`
   justify-content: space-between;
   font-family: 'Inter', sans-serif;
   @media only screen and (min-width: 600px) {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   min-height: 98vh;
 `

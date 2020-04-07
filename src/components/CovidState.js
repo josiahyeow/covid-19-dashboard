@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { covidConfig } from '../config'
 import Card from './Card'
 import CovidHistory from './CovidHistory'
+import Theme from '../Theme'
 
 const Statuses = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ const Status = styled.div`
 
 const Label = styled.span`
   font-weight: bold;
+  color: ${Theme.color.text.lighter};
 `
 
 const Data = styled.span`
@@ -93,15 +95,21 @@ const CovidState = ({ state }) => {
         </Status>
         <Status>
           <Label>Active</Label>
-          <Data color={'#f74043'}>{data ? data.active : '-'}</Data>
+          <Data color={Theme.color.palette.red}>
+            {data ? data.active : '-'}
+          </Data>
         </Status>
         <Status>
           <Label>Recovered</Label>
-          <Data color={'#40f780'}>{data ? data.recovered : '-'}</Data>
+          <Data color={Theme.color.palette.green}>
+            {data ? data.recovered : '-'}
+          </Data>
         </Status>
         <Status>
           <Label>Deaths</Label>
-          <Data color={'#575757'}>{data ? data.deaths : '-'}</Data>
+          <Data color={Theme.color.palette.grey}>
+            {data ? data.deaths : '-'}
+          </Data>
         </Status>
       </Statuses>
       <ChartContainer>

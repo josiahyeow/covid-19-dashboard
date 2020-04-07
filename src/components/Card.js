@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import Theme from '../Theme'
 
 const CardStyle = styled.div`
-  background: #fff;
-  padding: 1rem;
-  margin: 1.5rem;
-  border-radius: 12px;
-  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
+  color: ${Theme.color.text.lightest};
+  background: ${Theme.color.background.dark};
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 24px;
   width: 23rem;
   @media only screen and (max-width: 600px) {
     width: 100%;

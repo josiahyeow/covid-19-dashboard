@@ -1,7 +1,19 @@
 import csv from 'csvtojson'
 import React, { useState, useEffect } from 'react'
-import { VictoryChart, VictoryArea, VictoryTheme } from 'victory'
+import { VictoryChart, VictoryArea, VictoryAxis } from 'victory'
 import { covidConfig } from '../config'
+import Theme from '../Theme'
+
+const axisTheme = {
+  axis: { stroke: `${Theme.color.text.light}` },
+  axisLabel: {
+    fontSize: 10,
+    padding: 45,
+    fill: `${Theme.color.text.light}`,
+  },
+  ticks: { stroke: `${Theme.color.text.light}`, size: 5 },
+  tickLabels: { fontSize: 15, padding: 5, fill: `${Theme.color.text.light}` },
+}
 
 const fetchStateData = async (url, report, state) => {
   const data = await (await fetch(`${url}${report}`)).text()
@@ -58,11 +70,17 @@ const CovidHistory = ({ state }) => {
   }, [])
 
   return (
-    <VictoryChart theme={VictoryTheme.grayscale}>
+    <VictoryChart>
+      <VictoryAxis
+        style={axisTheme}
+        orientation={'left'}
+        tickFormat={(t) => `${t / 1000}k`}
+        dependentAxis
+      />
       <VictoryArea
-        style={{ data: { fill: '#f74043' } }}
+        style={{ data: { fill: `${Theme.color.palette.red}` } }}
         data={active}
-        domain={{ y: [0, 3000] }}
+        domain={{ y: [0, 4000] }}
         interpolation="natural"
       />
     </VictoryChart>
