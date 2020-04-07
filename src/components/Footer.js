@@ -7,11 +7,11 @@ const CSSE_URL = 'https://github.com/CSSEGISandData/COVID-19'
 const NOVELCOVID_URL = 'https://github.com/novelcovid/api'
 
 const FooterContainer = styled.div`
-  padding: 1.5rem;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 1.5rem;
 `
 
 const Profile = styled.div`
@@ -37,10 +37,10 @@ const Footer = () => {
       <Profile>
         Josiah Yeow{' '}
         <Link href={GITHUB_URL}>
-          <i class="fab fa-github" />{' '}
+          <i className="fab fa-github" />{' '}
         </Link>
         <Link href={LINKEDIN_URL}>
-          <i class="fab fa-linkedin" />
+          <i className="fab fa-linkedin" />
         </Link>
       </Profile>
     </FooterContainer>

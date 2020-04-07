@@ -6,11 +6,17 @@ import CovidState from './components/CovidState'
 import Footer from './components/Footer'
 
 const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: 'Inter', sans-serif;
   @media only screen and (min-width: 600px) {
     padding: 1rem;
   }
+  min-height: 98vh;
 `
+const Body = styled.div``
+
 const WidgetSection = styled.section`
   display: flex;
   flex-wrap: wrap;
@@ -19,18 +25,20 @@ const WidgetSection = styled.section`
 const App = () => {
   return (
     <AppContainer>
-      <Title />
-      <WidgetSection>
-        <Covid />
-        <CovidState state={'Victoria'} />
-        <CovidState state={'New South Wales'} />
-        <CovidState state={'Queensland'} />
-        <CovidState state={'Australian Capital Territory'} />
-        <CovidState state={'South Australia'} />
-        <CovidState state={'Western Australia'} />
-        <CovidState state={'Northern Territory'} />
-        <CovidState state={'Tasmania'} />
-      </WidgetSection>
+      <Body>
+        <Title />
+        <WidgetSection>
+          <Covid />
+          <CovidState state={'Victoria'} />
+          <CovidState state={'New South Wales'} />
+          <CovidState state={'Queensland'} />
+          <CovidState state={'Australian Capital Territory'} />
+          <CovidState state={'South Australia'} />
+          <CovidState state={'Western Australia'} />
+          <CovidState state={'Northern Territory'} />
+          <CovidState state={'Tasmania'} />
+        </WidgetSection>
+      </Body>
       <Footer />
     </AppContainer>
   )
