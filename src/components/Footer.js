@@ -1,0 +1,50 @@
+import React from 'react'
+import styled from 'styled-components'
+
+const GITHUB_URL = 'https://github.com/josiahyeow'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/josiah-yeow/'
+const CSSE_URL = 'https://github.com/CSSEGISandData/COVID-19'
+const NOVELCOVID_URL = 'https://github.com/novelcovid/api'
+
+const FooterContainer = styled.div`
+  padding: 1.5rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
+
+const Profile = styled.div`
+  margin-top: 1rem;
+`
+
+const Sources = styled.div`
+  margin-top: 1rem;
+`
+
+const Link = styled.a`
+  color: #ffffff;
+  font-weight: bold;
+`
+
+const Footer = () => {
+  return (
+    <FooterContainer>
+      <Sources>
+        Data sourced from <Link href={CSSE_URL}>Johns Hopkins CSSE</Link> and{' '}
+        <Link href={NOVELCOVID_URL}>NovelCOVID API</Link>
+      </Sources>
+      <Profile>
+        Josiah Yeow{' '}
+        <Link href={GITHUB_URL}>
+          <i class="fab fa-github" />{' '}
+        </Link>
+        <Link href={LINKEDIN_URL}>
+          <i class="fab fa-linkedin" />
+        </Link>
+      </Profile>
+    </FooterContainer>
+  )
+}
+
+export default Footer

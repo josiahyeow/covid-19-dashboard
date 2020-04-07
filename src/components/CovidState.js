@@ -26,7 +26,7 @@ const Data = styled.span`
 `
 
 const ChartContainer = styled.div`
-  max-height: 16rem;
+  max-height: 14rem;
 `
 
 const getFilename = (offset = 0) => {

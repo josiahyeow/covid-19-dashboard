@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Title from './components/Title'
 import Covid from './components/Covid'
 import CovidState from './components/CovidState'
+import Footer from './components/Footer'
 
 const AppContainer = styled.div`
   font-family: 'Inter', sans-serif;
@@ -30,6 +31,7 @@ const App = () => {
         <CovidState state={'Northern Territory'} />
         <CovidState state={'Tasmania'} />
       </WidgetSection>
+      <Footer />
     </AppContainer>
   )
 }
