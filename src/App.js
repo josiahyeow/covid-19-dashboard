@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Title from './components/Title'
+import Header from './components/Header'
 import Covid from './components/Covid'
 import CovidState from './components/CovidState'
 import Footer from './components/Footer'
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <AppContainer>
       <Body>
-        <Title />
+        <Header />
         <WidgetSection>
           <Covid />
           <CovidState state={'Victoria'} />
