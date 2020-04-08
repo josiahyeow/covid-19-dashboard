@@ -7,7 +7,8 @@ import {
   Label,
   XAxis,
   YAxis,
-  CartesianGrid,
+  LineChart,
+  Line,
 } from 'recharts'
 import { covidConfig } from '../config'
 import Theme from '../Theme'
@@ -68,7 +69,7 @@ const CovidHistory = ({ state }) => {
 
   return (
     <ResponsiveContainer width={'100%'} height={'100%'}>
-      <AreaChart data={active}>
+      <LineChart data={active}>
         <Label value="Curb" offset={0} position="center" />
         <XAxis
           dataKey="name"
@@ -86,14 +87,14 @@ const CovidHistory = ({ state }) => {
             style: { fill: Theme.color.palette.darkGrey },
           }}
         />
-        <Area
-          type="monotone"
+        <Line
+          type="natural"
           dataKey="y"
-          stroke={'none'}
-          fill={Theme.color.palette.red}
-          fillOpacity="1"
+          stroke={Theme.color.palette.red}
+          strokeWidth={3}
+          dot={false}
         />
-      </AreaChart>
+      </LineChart>
     </ResponsiveContainer>
   )
 }

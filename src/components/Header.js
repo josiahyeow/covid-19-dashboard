@@ -43,7 +43,7 @@ const Header = () => {
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
       </Title>
-      <CountrySelect>Australia</CountrySelect>
+      <CountrySelect></CountrySelect>
     </Container>
   )
 }
