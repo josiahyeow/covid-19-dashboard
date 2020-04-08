@@ -23,7 +23,7 @@ const Content = styled.div``
 const Card = ({ title, children }) => {
   return (
     <CardStyle>
-      <Title>{title.toUpperCase()}</Title>
+      <Title>{title}</Title>
       <Content>{children}</Content>
     </CardStyle>
   )

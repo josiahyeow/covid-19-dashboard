@@ -1,19 +1,16 @@
 import csv from 'csvtojson'
 import React, { useState, useEffect } from 'react'
-import { VictoryChart, VictoryArea, VictoryAxis } from 'victory'
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  Label,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts'
 import { covidConfig } from '../config'
 import Theme from '../Theme'
-
-const axisTheme = {
-  axis: { stroke: `${Theme.color.text.light}` },
-  axisLabel: {
-    fontSize: 10,
-    padding: 45,
-    fill: `${Theme.color.text.light}`,
-  },
-  ticks: { stroke: `${Theme.color.text.light}`, size: 5 },
-  tickLabels: { fontSize: 15, padding: 5, fill: `${Theme.color.text.light}` },
-}
 
 const fetchStateData = async (url, report, state) => {
   const data = await (await fetch(`${url}${report}`)).text()
@@ -70,20 +67,34 @@ const CovidHistory = ({ state }) => {
   }, [])
 
   return (
-    <VictoryChart>
-      <VictoryAxis
-        style={axisTheme}
-        orientation={'left'}
-        tickFormat={(t) => `${t / 1000}k`}
-        dependentAxis
-      />
-      <VictoryArea
-        style={{ data: { fill: `${Theme.color.palette.red}` } }}
-        data={active}
-        domain={{ y: [0, 4000] }}
-        interpolation="natural"
-      />
-    </VictoryChart>
+    <ResponsiveContainer width={'100%'} height={'100%'}>
+      <AreaChart data={active}>
+        <Label value="Curb" offset={0} position="center" />
+        <XAxis
+          dataKey="name"
+          label={{
+            value: 'Days',
+            position: 'insideBottom',
+            style: { fill: Theme.color.palette.darkGrey },
+          }}
+        />
+        <YAxis
+          label={{
+            value: 'Active cases',
+            angle: -90,
+            position: 'insideBottomLeft',
+            style: { fill: Theme.color.palette.darkGrey },
+          }}
+        />
+        <Area
+          type="monotone"
+          dataKey="y"
+          stroke={'none'}
+          fill={Theme.color.palette.red}
+          fillOpacity="1"
+        />
+      </AreaChart>
+    </ResponsiveContainer>
   )
 }
 

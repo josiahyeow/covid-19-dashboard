@@ -15,6 +15,7 @@ const Theme = {
       orange: '#febc2c',
       green: '#40f780',
       grey: '#a6a7a9',
+      darkGrey: '#666768',
     },
   },
 }

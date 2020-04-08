@@ -28,7 +28,8 @@ const Data = styled.span`
 `
 
 const ChartContainer = styled.div`
-  max-height: 14rem;
+  margin-top: 1rem;
+  height: 12rem;
 `
 
 const getFilename = (offset = 0) => {
