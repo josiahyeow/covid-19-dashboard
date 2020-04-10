@@ -38,7 +38,7 @@ const App = () => {
         <WidgetSection>
           <Country country={country} />
           {states.map((state) => (
-            <State country={country} state={state} />
+            <State key={state} country={country} state={state} />
           ))}
         </WidgetSection>
       </Body>
