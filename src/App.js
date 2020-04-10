@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { CovidProvider } from './CovidContext'
 import Header from './components/Header'
-import Covid from './components/Covid'
-import CovidState from './components/CovidState'
+import Country from './components/Country'
+import State from './components/State'
 import Footer from './components/Footer'
-import { getCountryData, getReportData, getSeriesData } from './Api'
+import { getReportData, getSeriesData } from './Api'
 
 const AppContainer = styled.div`
   display: flex;
@@ -25,14 +25,16 @@ const WidgetSection = styled.section`
 `
 
 const App = () => {
-  const [countryData, setCountryData] = useState()
+  const [country, setCountry] = useState('Australia')
   const [reportData, setReportData] = useState()
   const [seriesData, setSeriesData] = useState()
 
-  useEffect(async () => {
-    setCountryData(await getCountryData())
-    setReportData(await getReportData())
-    setSeriesData(await getSeriesData())
+  useEffect(() => {
+    async function fetchData() {
+      setReportData(await getReportData())
+      setSeriesData(await getSeriesData())
+    }
+    fetchData()
   }, [])
 
   return (
@@ -40,17 +42,17 @@ const App = () => {
       <Body>
         <Header />
         <WidgetSection>
-          {countryData && reportData && seriesData && (
-            <CovidProvider value={{ countryData, reportData, seriesData }}>
-              <Covid />
-              <CovidState state={'Victoria'} />
-              <CovidState state={'New South Wales'} />
-              <CovidState state={'Queensland'} />
-              <CovidState state={'Australian Capital Territory'} />
-              <CovidState state={'South Australia'} />
-              <CovidState state={'Western Australia'} />
-              <CovidState state={'Northern Territory'} />
-              <CovidState state={'Tasmania'} />
+          <Country country={country} />
+          {reportData && seriesData && (
+            <CovidProvider value={{ reportData, seriesData }}>
+              <State state={'Victoria'} />
+              <State state={'New South Wales'} />
+              <State state={'Queensland'} />
+              <State state={'Australian Capital Territory'} />
+              <State state={'South Australia'} />
+              <State state={'Western Australia'} />
+              <State state={'Northern Territory'} />
+              <State state={'Tasmania'} />
             </CovidProvider>
           )}
         </WidgetSection>

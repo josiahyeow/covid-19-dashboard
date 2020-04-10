@@ -1,11 +1,8 @@
 import csv from 'csvtojson'
-import { covidConfig } from './config'
+import { config } from './config'
 
-const getCountryData = async () => {
-  const { URL, COUNTRY } = covidConfig
-  const request = `${URL}${COUNTRY}`
-  return await (await fetch(request)).json()
-}
+const getCountryData = async (country) =>
+  await (await fetch(`${config.NOVELCOVID_URL}${country}`)).json()
 
 const getReportData = async () => {
   let retries = 0
@@ -22,8 +19,7 @@ const getReportData = async () => {
   }
 
   const getData = async (date) => {
-    const { CSSE_BASE, CSSE_REPORT } = covidConfig
-    const request = `${CSSE_BASE}${CSSE_REPORT}${date}.csv`
+    const request = `${config.CSSE_BASE_URL}${config.CSSE_REPORT}${date}.csv`
     try {
       const response = await fetch(request)
       const text = await response.text()
@@ -62,20 +58,10 @@ const getSeriesData = async () => {
     }).fromString(data)
     return parsedData
   }
-
-  const {
-    CSSE_BASE,
-    CSSE_SERIES,
-    CSSE_CONFIRMED,
-    CSSE_RECOVERED,
-    CSSE_DEATHS,
-  } = covidConfig
-  const request = `${CSSE_BASE}${CSSE_SERIES}`
-
-  const confirmedData = await getSeriesCsv(request, CSSE_CONFIRMED)
-  const recoveredData = await getSeriesCsv(request, CSSE_RECOVERED)
-  const deathsData = await getSeriesCsv(request, CSSE_DEATHS)
-
+  const request = `${config.CSSE_BASE_URL}${config.CSSE_SERIES}`
+  const confirmedData = await getSeriesCsv(request, config.CSSE_CONFIRMED)
+  const recoveredData = await getSeriesCsv(request, config.CSSE_RECOVERED)
+  const deathsData = await getSeriesCsv(request, config.CSSE_DEATHS)
   return {
     confirmed: confirmedData,
     recovered: recoveredData,

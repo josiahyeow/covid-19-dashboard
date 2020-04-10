@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { covidConfig } from '../config'
 import Card from './Card'
-import CovidHistory from './CovidHistory'
+import Curve from './Curve'
 import Theme from '../Theme'
 import CovidContext from '../CovidContext'
 
@@ -33,7 +33,7 @@ const ChartContainer = styled.div`
   height: 12rem;
 `
 
-const CovidState = ({ state }) => {
+const State = ({ state }) => {
   const { reportData } = useContext(CovidContext)
 
   const data = reportData.filter(
@@ -67,10 +67,10 @@ const CovidState = ({ state }) => {
         </Status>
       </Statuses>
       <ChartContainer>
-        <CovidHistory state={state} />
+        <Curve state={state} />
       </ChartContainer>
     </Card>
   )
 }
 
-export default CovidState
+export default State

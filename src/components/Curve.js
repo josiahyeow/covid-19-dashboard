@@ -27,7 +27,7 @@ const convertToDataArray = (data) => {
   return dataArray
 }
 
-const CovidHistory = ({ state }) => {
+const Curve = ({ state }) => {
   const { seriesData } = useContext(CovidContext)
 
   const { confirmed, recovered, deaths } = seriesData
@@ -67,4 +67,4 @@ const CovidHistory = ({ state }) => {
   )
 }
 
-export default CovidHistory
+export default Curve
