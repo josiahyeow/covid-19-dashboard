@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { CovidProvider } from './CovidContext'
 import Header from './components/Header'
 import Covid from './components/Covid'
 import CovidState from './components/CovidState'
 import Footer from './components/Footer'
+import { getCountryData, getReportData, getSeriesData } from './Api'
 
 const AppContainer = styled.div`
   display: flex;
@@ -23,20 +25,34 @@ const WidgetSection = styled.section`
 `
 
 const App = () => {
+  const [countryData, setCountryData] = useState()
+  const [reportData, setReportData] = useState()
+  const [seriesData, setSeriesData] = useState()
+
+  useEffect(async () => {
+    setCountryData(await getCountryData())
+    setReportData(await getReportData())
+    setSeriesData(await getSeriesData())
+  }, [])
+
   return (
     <AppContainer>
       <Body>
         <Header />
         <WidgetSection>
-          <Covid />
-          <CovidState state={'Victoria'} />
-          <CovidState state={'New South Wales'} />
-          <CovidState state={'Queensland'} />
-          <CovidState state={'Australian Capital Territory'} />
-          <CovidState state={'South Australia'} />
-          <CovidState state={'Western Australia'} />
-          <CovidState state={'Northern Territory'} />
-          <CovidState state={'Tasmania'} />
+          {countryData && reportData && seriesData && (
+            <CovidProvider value={{ countryData, reportData, seriesData }}>
+              <Covid />
+              <CovidState state={'Victoria'} />
+              <CovidState state={'New South Wales'} />
+              <CovidState state={'Queensland'} />
+              <CovidState state={'Australian Capital Territory'} />
+              <CovidState state={'South Australia'} />
+              <CovidState state={'Western Australia'} />
+              <CovidState state={'Northern Territory'} />
+              <CovidState state={'Tasmania'} />
+            </CovidProvider>
+          )}
         </WidgetSection>
       </Body>
       <Footer />

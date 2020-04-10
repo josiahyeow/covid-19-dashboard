@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { covidConfig } from '../config'
+import CovidContext from '../CovidContext'
 import Card from './Card'
 
 const Statuses = styled.div`
@@ -33,28 +33,18 @@ const Flag = styled.img`
 `
 
 const Covid = () => {
-  const [data, setData] = useState({
-    cases: '-',
-    todayCases: '-',
-    deaths: '-',
-    recovered: '-',
-    active: '-',
-    countryInfo: {
-      flag: '',
-    },
-  })
+  const { countryData } = useContext(CovidContext)
 
-  useEffect(() => {
-    async function fetchData() {
-      const { URL, COUNTRY } = covidConfig
-      const request = `${URL}${COUNTRY}`
-      const data = await (await fetch(request)).json()
-      setData(data)
-    }
-    fetchData()
-  }, [])
+  console.log(countryData)
 
-  const { cases, todayCases, deaths, recovered, active, countryInfo } = data
+  const {
+    cases,
+    todayCases,
+    deaths,
+    recovered,
+    active,
+    countryInfo,
+  } = countryData
 
   return (
     <Card title={'Australia'}>
