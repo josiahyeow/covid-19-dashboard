@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Theme from '../Theme'
+import COUNTRY_STATES from '../countryStates'
 
 const Container = styled.div`
   display: flex;
@@ -30,20 +31,28 @@ const Covid = styled.span`
   border-radius: 8px;
 `
 
-const CountrySelect = styled.div`
+const CountrySelect = styled.select`
   padding: 0.5rem;
   border-radius: 8px;
   color: ${Theme.color.text.lightest};
+  background: ${Theme.color.background.darkest};
+  border: none;
 `
 
-const Header = () => {
+const Header = ({ setCountry }) => {
   return (
     <Container>
       <Title>
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
       </Title>
-      <CountrySelect></CountrySelect>
+      <CountrySelect onChange={(e) => setCountry(e.target.value)}>
+        {Object.keys(COUNTRY_STATES).map((country) => (
+          <option key={country} value={country}>
+            {country}
+          </option>
+        ))}
+      </CountrySelect>
     </Container>
   )
 }

@@ -1,22 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { ResponsiveContainer, XAxis, YAxis, LineChart, Line } from 'recharts'
 import Theme from '../Theme'
-import CovidContext from '../CovidContext'
+import covid from '../covid'
 
-const getActiveData = (confirmedData, recoveredData, deathsData, state) => {
-  const confirmedArray = Object.values(
-    confirmedData.filter((row) => row['field1'] === state)[0]
-  )
-  const recoveredArray = Object.values(
-    recoveredData.filter((row) => row['field1'] === state)[0]
-  )
-  const deathsArray = Object.values(
-    deathsData.filter((row) => row['field1'] === state)[0]
-  )
+const NoData = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: ${Theme.color.text.light};
+`
+
+const calculateActive = ({ cases, deaths, recovered }) => {
+  const confirmedArray = Object.values(cases)
+  const deathsArray = Object.values(deaths)
+  const recoveredArray = Object.values(recovered)
 
   const active = []
   confirmedArray.forEach((confirmed, i) => {
-    i > 3 && active.push(confirmed - recoveredArray[i] - deathsArray[i])
+    active.push(confirmed - recoveredArray[i] - deathsArray[i])
   })
   return active
 }
@@ -27,44 +30,55 @@ const convertToDataArray = (data) => {
   return dataArray
 }
 
-const Curve = ({ state }) => {
-  const { seriesData } = useContext(CovidContext)
+const Curve = ({ country, state }) => {
+  const [activeCases, setActiveCases] = useState()
 
-  const { confirmed, recovered, deaths } = seriesData
+  useEffect(() => {
+    async function fetchData() {
+      const { timeline } = await covid.historical(null, country, state)
+      if (timeline) {
+        const activeData = calculateActive(timeline)
+        setActiveCases(convertToDataArray(activeData))
+      } else {
+        setActiveCases(undefined)
+      }
+    }
+    fetchData()
+  }, [country, state])
 
-  const active = convertToDataArray(
-    getActiveData(confirmed, recovered, deaths, state)
-  )
-
-  return (
-    <ResponsiveContainer width={'100%'} height={'100%'}>
-      <LineChart data={active}>
-        <XAxis
-          dataKey="name"
-          label={{
-            value: 'Days',
-            position: 'insideBottom',
-            style: { fill: Theme.color.palette.darkGrey },
-          }}
-        />
-        <YAxis
-          label={{
-            value: 'Active cases',
-            angle: -90,
-            position: 'insideBottomLeft',
-            style: { fill: Theme.color.palette.darkGrey },
-          }}
-        />
-        <Line
-          type="natural"
-          dataKey="activeCases"
-          stroke={Theme.color.palette.red}
-          strokeWidth={3}
-          dot={false}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  )
+  if (activeCases) {
+    return (
+      <ResponsiveContainer width={'100%'} height={'100%'}>
+        <LineChart data={activeCases}>
+          <XAxis
+            dataKey="name"
+            label={{
+              value: 'Days',
+              position: 'insideBottom',
+              style: { fill: Theme.color.palette.darkGrey },
+            }}
+          />
+          <YAxis
+            label={{
+              value: 'Active cases',
+              angle: -90,
+              position: 'insideBottomLeft',
+              style: { fill: Theme.color.palette.darkGrey },
+            }}
+          />
+          <Line
+            type="natural"
+            dataKey="activeCases"
+            stroke={Theme.color.palette.red}
+            strokeWidth={3}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    )
+  } else {
+    return <NoData>No historical data available</NoData>
+  }
 }
 
 export default Curve

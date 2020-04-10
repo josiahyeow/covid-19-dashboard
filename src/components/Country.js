@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from './Card'
-import { getCountryData } from '../Api'
+import covid from '../covid'
 
 const Statuses = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const Country = ({ country }) => {
 
   useEffect(() => {
     async function fetchData() {
-      setData(await getCountryData(country))
+      setData(await covid.countries(country))
     }
     fetchData()
   }, [country])

@@ -1,11 +1,9 @@
-import csv from 'csvtojson'
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { covidConfig } from '../config'
 import Card from './Card'
 import Curve from './Curve'
 import Theme from '../Theme'
-import CovidContext from '../CovidContext'
+import covid from '../covid'
 
 const Statuses = styled.div`
   display: flex;
@@ -33,41 +31,55 @@ const ChartContainer = styled.div`
   height: 12rem;
 `
 
-const State = ({ state }) => {
-  const { reportData } = useContext(CovidContext)
+const State = ({ country, state }) => {
+  const [data, setData] = useState({
+    stats: {
+      confirmed: '-',
+      deaths: '-',
+      recovered: '-',
+    },
+  })
 
-  const data = reportData.filter(
-    (row) => row['Combined_Key'] === `${state}, Australia`
-  )[0]
+  useEffect(() => {
+    async function fetchData() {
+      const data = await covid.jhucsse()
+      const stateData = data.find(
+        (stateObj) =>
+          stateObj.country === country && stateObj.province === state
+      )
+      stateData && setData(stateData)
+    }
+    fetchData()
+  }, [country, state])
+
+  const {
+    stats: { confirmed, deaths, recovered },
+  } = data
 
   return (
-    <Card title={`${data ? data.state : '-'}`}>
+    <Card title={state}>
       <Statuses>
         <Status>
           <Label>Cases</Label>
-          <Data>{data ? data.cases : '-'}</Data>
+          <Data>{confirmed}</Data>
         </Status>
         <Status>
           <Label>Active</Label>
           <Data color={Theme.color.palette.red}>
-            {data ? data.active : '-'}
+            {Number.isInteger(confirmed) ? confirmed - recovered - deaths : '-'}
           </Data>
         </Status>
         <Status>
           <Label>Recovered</Label>
-          <Data color={Theme.color.palette.green}>
-            {data ? data.recovered : '-'}
-          </Data>
+          <Data color={Theme.color.palette.green}>{recovered}</Data>
         </Status>
         <Status>
           <Label>Deaths</Label>
-          <Data color={Theme.color.palette.grey}>
-            {data ? data.deaths : '-'}
-          </Data>
+          <Data color={Theme.color.palette.grey}>{deaths}</Data>
         </Status>
       </Statuses>
       <ChartContainer>
-        <Curve state={state} />
+        <Curve country={country} state={state} />
       </ChartContainer>
     </Card>
   )
