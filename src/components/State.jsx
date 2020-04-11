@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Card from './Card'
 import Curve from './Curve'
 import Theme from '../Theme'
-import covid from '../covid'
 
 const Statuses = styled.div`
   display: flex;
@@ -31,30 +30,14 @@ const ChartContainer = styled.div`
   height: 12rem;
 `
 
-const State = ({ country, state }) => {
-  const [data, setData] = useState({
-    stats: {
-      confirmed: '-',
-      deaths: '-',
-      recovered: '-',
-    },
-  })
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await covid.jhucsse()
-      const stateData = data.find(
-        (stateObj) =>
-          stateObj.country === country && stateObj.province === state
-      )
-      stateData && setData(stateData)
-    }
-    fetchData()
-  }, [country, state])
+const State = ({ country, state, data }) => {
+  const stateData = data.find(
+    (stateObj) => stateObj.country === country && stateObj.province === state
+  )
 
   const {
     stats: { confirmed, deaths, recovered },
-  } = data
+  } = stateData
 
   return (
     <Card title={state}>

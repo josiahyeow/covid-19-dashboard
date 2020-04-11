@@ -7,7 +7,7 @@ const CardStyle = styled.div`
   background: ${Theme.color.background.dark};
   padding: 2rem;
   margin: 1rem;
-  border-radius: 24px;
+  border-radius: 2rem;
   width: 23rem;
   @media only screen and (max-width: 600px) {
     width: 100%;

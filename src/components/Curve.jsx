@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ResponsiveContainer, XAxis, YAxis, LineChart, Line } from 'recharts'
 import Theme from '../Theme'
-import covid from '../covid'
+import covid from '../data/covid'
 
 const NoData = styled.div`
   display: flex;

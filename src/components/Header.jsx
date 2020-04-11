@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Theme from '../Theme'
-import covid from '../covid'
+import covid from '../data/covid'
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin: 1rem;
   padding: 1rem 0;
 `
@@ -16,6 +17,7 @@ const Title = styled.div`
   flex-wrap: wrap;
   font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 2rem;
 `
 
 const Text = styled.span`
@@ -32,11 +34,16 @@ const Covid = styled.span`
 `
 
 const CountrySelect = styled.select`
-  padding: 0.5rem;
-  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 1rem;
   color: ${Theme.color.text.lightest};
   background: ${Theme.color.background.darkest};
   border: none;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `
 
 const Header = ({ currentCountry, setCountry }) => {

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Header from './components/Header'
 import Country from './components/Country'
-import State from './components/State'
+import States from './components/States'
 import Footer from './components/Footer'
-import { COUNTRY_STATES } from './countryStates'
 
 const AppContainer = styled.div`
   display: flex;
@@ -25,16 +24,6 @@ const WidgetSection = styled.section`
 
 const App = () => {
   const [country, setCountry] = useState('Australia')
-  const [states, setStates] = useState([])
-
-  useEffect(() => {
-    const countryStates = COUNTRY_STATES[country]
-    if (countryStates) {
-      setStates(COUNTRY_STATES[country])
-    } else {
-      setStates(null)
-    }
-  }, [country])
 
   return (
     <AppContainer>
@@ -42,10 +31,7 @@ const App = () => {
         <Header currentCountry={country} setCountry={setCountry} />
         <WidgetSection>
           <Country country={country} />
-          {states &&
-            states.map((state) => (
-              <State key={state} country={country} state={state} />
-            ))}
+          <States country={country} />
         </WidgetSection>
       </Body>
       <Footer />

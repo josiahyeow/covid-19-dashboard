@@ -31,8 +31,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Sources>
-        Data sourced from <Link href={CSSE_URL}>Johns Hopkins CSSE</Link> and{' '}
-        <Link href={NOVELCOVID_URL}>NovelCOVID API</Link>
+        Data sourced from <Link href={NOVELCOVID_URL}>NovelCOVID API</Link>
       </Sources>
       <Profile>
         Josiah Yeow{' '}
