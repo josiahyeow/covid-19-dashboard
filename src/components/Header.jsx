@@ -33,14 +33,29 @@ const Covid = styled.span`
   border-radius: 8px;
 `
 
-const CountrySelect = styled.select`
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 1rem;
+const SelectStyle = styled.div`
+  color: ${Theme.color.text.lightest};
+  position: relative;
   border-radius: 1rem;
+  &::after {
+    content: '▼';
+    font-size: 1rem;
+    top: 14px;
+    right: 10px;
+    position: absolute;
+  }
+`
+
+const CountrySelect = styled.select`
+  font-weight: bold;
+  font-size: 1rem;
   color: ${Theme.color.text.lightest};
   background: ${Theme.color.background.darkest};
   border: none;
+  padding: 1rem;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 100%;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
@@ -62,17 +77,19 @@ const Header = ({ currentCountry, setCountry }) => {
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
       </Title>
-      <CountrySelect
-        value={currentCountry}
-        onChange={(e) => setCountry(e.target.value)}
-      >
-        {countries &&
-          countries.map((country) => (
-            <option key={country} value={country}>
-              {country}
-            </option>
-          ))}
-      </CountrySelect>
+      <SelectStyle>
+        <CountrySelect
+          value={currentCountry}
+          onChange={(e) => setCountry(e.target.value)}
+        >
+          {countries &&
+            countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+        </CountrySelect>
+      </SelectStyle>
     </Container>
   )
 }
