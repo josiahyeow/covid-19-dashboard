@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const GITHUB_URL = 'https://github.com/josiahyeow'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/josiah-yeow/'
-const CSSE_URL = 'https://github.com/CSSEGISandData/COVID-19'
 const NOVELCOVID_URL = 'https://github.com/novelcovid/api'
 
 const FooterContainer = styled.div`

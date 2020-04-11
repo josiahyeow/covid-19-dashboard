@@ -20,14 +20,17 @@ const States = ({ country }) => {
     fetchData()
   }, [country])
 
-  return (
-    <>
-      {states &&
-        states.map((state) => (
+  if (states) {
+    return (
+      <>
+        {states.map((state) => (
           <State key={state} country={country} state={state} data={stateData} />
         ))}
-    </>
-  )
+      </>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default States

@@ -35,37 +35,43 @@ const State = ({ country, state, data }) => {
     (stateObj) => stateObj.country === country && stateObj.province === state
   )
 
-  const {
-    stats: { confirmed, deaths, recovered },
-  } = stateData
+  if (stateData) {
+    const {
+      stats: { confirmed, deaths, recovered },
+    } = stateData
 
-  return (
-    <Card title={state}>
-      <Statuses>
-        <Status>
-          <Label>Cases</Label>
-          <Data>{confirmed}</Data>
-        </Status>
-        <Status>
-          <Label>Active</Label>
-          <Data color={Theme.color.palette.red}>
-            {Number.isInteger(confirmed) ? confirmed - recovered - deaths : '-'}
-          </Data>
-        </Status>
-        <Status>
-          <Label>Recovered</Label>
-          <Data color={Theme.color.palette.green}>{recovered}</Data>
-        </Status>
-        <Status>
-          <Label>Deaths</Label>
-          <Data color={Theme.color.palette.grey}>{deaths}</Data>
-        </Status>
-      </Statuses>
-      <ChartContainer>
-        <Curve country={country} state={state} />
-      </ChartContainer>
-    </Card>
-  )
+    return (
+      <Card title={state}>
+        <Statuses>
+          <Status>
+            <Label>Cases</Label>
+            <Data>{confirmed}</Data>
+          </Status>
+          <Status>
+            <Label>Active</Label>
+            <Data color={Theme.color.palette.red}>
+              {Number.isInteger(confirmed)
+                ? confirmed - recovered - deaths
+                : '-'}
+            </Data>
+          </Status>
+          <Status>
+            <Label>Recovered</Label>
+            <Data color={Theme.color.palette.green}>{recovered}</Data>
+          </Status>
+          <Status>
+            <Label>Deaths</Label>
+            <Data color={Theme.color.palette.grey}>{deaths}</Data>
+          </Status>
+        </Statuses>
+        <ChartContainer>
+          <Curve country={country} state={state} />
+        </ChartContainer>
+      </Card>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default State
