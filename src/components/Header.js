@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Theme from '../Theme'
-import COUNTRY_STATES from '../countryStates'
+import covid from '../covid'
 
 const Container = styled.div`
   display: flex;
@@ -39,19 +39,32 @@ const CountrySelect = styled.select`
   border: none;
 `
 
-const Header = ({ setCountry }) => {
+const Header = ({ currentCountry, setCountry }) => {
+  const [countries, setCountries] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      setCountries(await covid.countryNames())
+    }
+    fetchData()
+  }, [])
+
   return (
     <Container>
       <Title>
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
       </Title>
-      <CountrySelect onChange={(e) => setCountry(e.target.value)}>
-        {Object.keys(COUNTRY_STATES).map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
+      <CountrySelect
+        value={currentCountry}
+        onChange={(e) => setCountry(e.target.value)}
+      >
+        {countries &&
+          countries.map((country) => (
+            <option key={country} value={country}>
+              {country}
+            </option>
+          ))}
       </CountrySelect>
     </Container>
   )

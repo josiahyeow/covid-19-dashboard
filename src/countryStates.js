@@ -1,3 +1,10 @@
+import covid from './covid'
+
+const getCountries = async () => {
+  const countries = await covid.countryNames()
+  return countries
+}
+
 const COUNTRY_STATES = {
   Australia: [
     'Victoria',
@@ -68,4 +75,4 @@ const COUNTRY_STATES = {
   ],
 }
 
-export default COUNTRY_STATES
+export { COUNTRY_STATES, getCountries }

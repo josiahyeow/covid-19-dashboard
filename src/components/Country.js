@@ -47,7 +47,9 @@ const Country = ({ country }) => {
 
   useEffect(() => {
     async function fetchData() {
-      setData(await covid.countries(country))
+      const countryData = await covid.countries(country)
+      console.log(countryData)
+      setData(countryData)
     }
     fetchData()
   }, [country])
@@ -65,7 +67,7 @@ const Country = ({ country }) => {
   return (
     <Card title={countryName}>
       <Statuses>
-        <Flag src={countryInfo?.flag} />
+        <Flag src={countryInfo.flag} />
         <Status>
           <Label>Cases</Label>
           <Data>{cases}</Data>

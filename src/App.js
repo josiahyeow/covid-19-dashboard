@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Country from './components/Country'
 import State from './components/State'
 import Footer from './components/Footer'
-import COUNTRY_STATES from './countryStates'
+import { COUNTRY_STATES } from './countryStates'
 
 const AppContainer = styled.div`
   display: flex;
@@ -28,18 +28,24 @@ const App = () => {
   const [states, setStates] = useState([])
 
   useEffect(() => {
-    setStates(COUNTRY_STATES[country])
+    const countryStates = COUNTRY_STATES[country]
+    if (countryStates) {
+      setStates(COUNTRY_STATES[country])
+    } else {
+      setStates(null)
+    }
   }, [country])
 
   return (
     <AppContainer>
       <Body>
-        <Header setCountry={setCountry} />
+        <Header currentCountry={country} setCountry={setCountry} />
         <WidgetSection>
           <Country country={country} />
-          {states.map((state) => (
-            <State key={state} country={country} state={state} />
-          ))}
+          {states &&
+            states.map((state) => (
+              <State key={state} country={country} state={state} />
+            ))}
         </WidgetSection>
       </Body>
       <Footer />
