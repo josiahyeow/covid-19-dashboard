@@ -38,9 +38,11 @@ const SelectStyle = styled.div`
   position: relative;
   border-radius: 1rem;
   &::after {
-    content: '▼';
+    font-family: 'Font Awesome 5 Free';
+    content: '\f078';
+    font-weight: 900;
     font-size: 1rem;
-    top: 14px;
+    top: 16px;
     right: 10px;
     position: absolute;
   }
@@ -55,7 +57,6 @@ const CountrySelect = styled.select`
   padding: 1rem;
   -webkit-appearance: none;
   appearance: none;
-  height: 100%;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
