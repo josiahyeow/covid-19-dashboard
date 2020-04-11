@@ -42,9 +42,12 @@ const SelectStyle = styled.div`
     content: '\f078';
     font-weight: 900;
     font-size: 1rem;
-    top: 16px;
-    right: 10px;
+    top: 18px;
+    right: 16px;
     position: absolute;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 100%;
   }
 `
 
