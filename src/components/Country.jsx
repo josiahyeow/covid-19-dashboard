@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Card from './Card'
 import covid from '../data/covid'
+import Curve from './Curve'
+import Theme from '../Theme'
 
 const Statuses = styled.div`
   display: flex;
   flex-wrap: wrap;
-  max-width: 24rem;
 `
 
 const Status = styled.div`
@@ -17,12 +18,19 @@ const Status = styled.div`
 
 const Label = styled.span`
   font-weight: bold;
+  color: ${Theme.color.text.lighter};
 `
 
 const Data = styled.span`
   color: ${({ color }) => color};
   font-size: 2rem;
 `
+
+const ChartContainer = styled.div`
+  margin-top: 1rem;
+  height: 12rem;
+`
+
 const Flag = styled.img`
   max-width: auto;
   max-height: 55px;
@@ -78,17 +86,20 @@ const Country = ({ country }) => {
           </Status>
           <Status>
             <Label>Active</Label>
-            <Data color={'#f74043'}>{active}</Data>
+            <Data color={Theme.color.palette.red}>{active}</Data>
           </Status>
           <Status>
             <Label>Recovered</Label>
-            <Data color={'#40f780'}>{recovered}</Data>
+            <Data color={Theme.color.palette.green}>{recovered}</Data>
           </Status>
           <Status>
             <Label>Deaths</Label>
-            <Data color={'#575757'}>{deaths}</Data>
+            <Data color={Theme.color.palette.grey}>{deaths}</Data>
           </Status>
         </Statuses>
+        <ChartContainer>
+          <Curve country={country} />
+        </ChartContainer>
       </Card>
     )
   } else {
