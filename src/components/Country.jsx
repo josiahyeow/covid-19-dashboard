@@ -63,33 +63,37 @@ const Country = ({ country }) => {
     countryInfo,
   } = data
 
-  return (
-    <Card title={countryName}>
-      <Statuses>
-        <Flag src={countryInfo.flag} />
-        <Status>
-          <Label>Cases</Label>
-          <Data>{cases}</Data>
-        </Status>
-        <Status>
-          <Label>Today</Label>
-          <Data> {todayCases}</Data>
-        </Status>
-        <Status>
-          <Label>Active</Label>
-          <Data color={'#f74043'}>{active}</Data>
-        </Status>
-        <Status>
-          <Label>Recovered</Label>
-          <Data color={'#40f780'}>{recovered}</Data>
-        </Status>
-        <Status>
-          <Label>Deaths</Label>
-          <Data color={'#575757'}>{deaths}</Data>
-        </Status>
-      </Statuses>
-    </Card>
-  )
+  if (data) {
+    return (
+      <Card title={countryName}>
+        <Statuses>
+          <Flag src={countryInfo.flag} />
+          <Status>
+            <Label>Cases</Label>
+            <Data>{cases}</Data>
+          </Status>
+          <Status>
+            <Label>Today</Label>
+            <Data> {todayCases}</Data>
+          </Status>
+          <Status>
+            <Label>Active</Label>
+            <Data color={'#f74043'}>{active}</Data>
+          </Status>
+          <Status>
+            <Label>Recovered</Label>
+            <Data color={'#40f780'}>{recovered}</Data>
+          </Status>
+          <Status>
+            <Label>Deaths</Label>
+            <Data color={'#575757'}>{deaths}</Data>
+          </Status>
+        </Statuses>
+      </Card>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default Country
