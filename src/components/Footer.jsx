@@ -11,6 +11,7 @@ const FooterContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 1rem;
+  color: ${({ theme }) => theme.color.text.lighter};
 `
 
 const Profile = styled.div`
@@ -22,7 +23,7 @@ const Sources = styled.div`
 `
 
 const Link = styled.a`
-  color: #ffffff;
+  color: ${({ theme }) => theme.color.text.lighter};
   font-weight: bold;
 `
 

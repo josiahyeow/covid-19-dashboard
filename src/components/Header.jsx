@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Theme from '../Theme'
 import covid from '../data/covid'
+import ThemeSwitch from './ThemeSwitch'
 
 const Container = styled.div`
   display: flex;
@@ -21,22 +21,23 @@ const Title = styled.div`
 `
 
 const Text = styled.span`
-  color: ${Theme.color.text.lightest};
+  color: ${({ theme }) => theme.color.text.lightest};
   padding: 0.5rem 0;
 `
 
 const Covid = styled.span`
-  color: ${Theme.color.text.darkest};
-  background-color: ${Theme.color.text.lightest};
+  color: ${({ theme }) => theme.color.background.darkest};
+  background-color: ${({ theme }) => theme.color.text.lightest};
   padding: 0.5rem;
   margin-right: 0.5rem;
   border-radius: 8px;
 `
 
 const SelectStyle = styled.div`
-  color: ${Theme.color.text.lightest};
+  color: ${({ theme }) => theme.color.text.lightest};
   position: relative;
   border-radius: 1rem;
+  margin-bottom: 2rem;
   &::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f078';
@@ -54,8 +55,8 @@ const SelectStyle = styled.div`
 const CountrySelect = styled.select`
   font-weight: bold;
   font-size: 1rem;
-  color: ${Theme.color.text.lightest};
-  background: ${Theme.color.background.darkest};
+  color: ${({ theme }) => theme.color.text.lightest};
+  background: ${({ theme }) => theme.color.background.darkest};
   border: none;
   padding: 1rem;
   -webkit-appearance: none;
@@ -65,7 +66,7 @@ const CountrySelect = styled.select`
   }
 `
 
-const Header = ({ currentCountry, setCountry }) => {
+const Header = ({ currentCountry, setCountry, mode, setMode }) => {
   const [countries, setCountries] = useState()
 
   useEffect(() => {
@@ -81,6 +82,7 @@ const Header = ({ currentCountry, setCountry }) => {
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
       </Title>
+      <ThemeSwitch mode={mode} setMode={setMode} />
       <SelectStyle>
         <CountrySelect
           value={currentCountry}

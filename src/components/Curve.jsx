@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect, useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components'
 import { ResponsiveContainer, XAxis, YAxis, LineChart, Line } from 'recharts'
-import Theme from '../Theme'
 import covid from '../data/covid'
 import { calculateActive } from '../data/calculateActive'
 
@@ -10,7 +9,7 @@ const NoData = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: ${Theme.color.text.light};
+  color: ${({ theme }) => theme.color.text.light};
 `
 
 const convertToDataArray = (data) => {
@@ -21,6 +20,7 @@ const convertToDataArray = (data) => {
 
 const Curve = ({ country, state }) => {
   const [activeCases, setActiveCases] = useState()
+  const themeContext = useContext(ThemeContext)
 
   useEffect(() => {
     async function fetchData() {
@@ -44,7 +44,7 @@ const Curve = ({ country, state }) => {
             label={{
               value: 'Days',
               position: 'insideBottom',
-              style: { fill: Theme.color.palette.darkGrey },
+              style: { fill: themeContext.color.palette.darkGrey },
             }}
           />
           <YAxis
@@ -52,13 +52,13 @@ const Curve = ({ country, state }) => {
               value: 'Active cases',
               angle: -90,
               position: 'insideBottomLeft',
-              style: { fill: Theme.color.palette.darkGrey },
+              style: { fill: themeContext.color.palette.darkGrey },
             }}
           />
           <Line
             type="natural"
             dataKey="activeCases"
-            stroke={Theme.color.palette.red}
+            stroke={themeContext.color.palette.red}
             strokeWidth={3}
             dot={false}
           />

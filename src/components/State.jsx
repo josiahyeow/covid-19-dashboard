@@ -1,8 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components'
 import Card from './Card'
 import Curve from './Curve'
-import Theme from '../Theme'
 
 const Statuses = styled.div`
   display: flex;
@@ -17,7 +16,7 @@ const Status = styled.div`
 
 const Label = styled.span`
   font-weight: bold;
-  color: ${Theme.color.text.lighter};
+  color: ${({ theme }) => theme.color.text.lighter};
 `
 
 const Data = styled.span`
@@ -31,6 +30,8 @@ const ChartContainer = styled.div`
 `
 
 const State = ({ country, state, data }) => {
+  const themeContext = useContext(ThemeContext)
+
   const stateData = data.find(
     (stateObj) => stateObj.country === country && stateObj.province === state
   )
@@ -49,7 +50,7 @@ const State = ({ country, state, data }) => {
           </Status>
           <Status>
             <Label>Active</Label>
-            <Data color={Theme.color.palette.red}>
+            <Data color={themeContext.color.palette.red}>
               {Number.isInteger(confirmed)
                 ? confirmed - recovered - deaths
                 : '-'}
@@ -57,11 +58,11 @@ const State = ({ country, state, data }) => {
           </Status>
           <Status>
             <Label>Recovered</Label>
-            <Data color={Theme.color.palette.green}>{recovered}</Data>
+            <Data color={themeContext.color.palette.green}>{recovered}</Data>
           </Status>
           <Status>
             <Label>Deaths</Label>
-            <Data color={Theme.color.palette.grey}>{deaths}</Data>
+            <Data color={themeContext.color.palette.grey}>{deaths}</Data>
           </Status>
         </Statuses>
         <ChartContainer>

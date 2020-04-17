@@ -1,14 +1,14 @@
-const Theme = {
+export default {
   color: {
     background: {
-      dark: '#2a2e32',
-      darker: '#272b2f',
-      darkest: '#212529',
+      dark: '#ffffff',
+      darker: '#fefefe',
+      darkest: '#f7f7f7',
     },
     text: {
-      lightest: '#ffffff',
-      lighter: '#d8d8d8',
-      light: '#a6a7a9',
+      lightest: '#2a2e32',
+      lighter: '#272b2f',
+      light: '#212529',
     },
     palette: {
       red: '#fd413c',
@@ -19,5 +19,3 @@ const Theme = {
     },
   },
 }
-
-export default Theme

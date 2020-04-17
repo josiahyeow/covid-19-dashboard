@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import Header from './components/Header'
 import Country from './components/Country'
 import States from './components/States'
 import Footer from './components/Footer'
+import darkTheme from './themes/dark'
+import lightTheme from './themes/light'
 
 const AppContainer = styled.div`
   display: flex;
@@ -14,6 +16,7 @@ const AppContainer = styled.div`
     padding: 1.5rem;
   }
   min-height: 98vh;
+  background-color: ${({ theme }) => theme.color.background.darkest};
 `
 const Body = styled.div``
 
@@ -24,18 +27,26 @@ const WidgetSection = styled.section`
 
 const App = () => {
   const [country, setCountry] = useState('Australia')
+  const [lightMode, setLightMode] = useState(true)
 
   return (
-    <AppContainer>
-      <Body>
-        <Header currentCountry={country} setCountry={setCountry} />
-        <WidgetSection>
-          <Country country={country} />
-          <States country={country} />
-        </WidgetSection>
-      </Body>
-      <Footer />
-    </AppContainer>
+    <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
+      <AppContainer>
+        <Body>
+          <Header
+            currentCountry={country}
+            setCountry={setCountry}
+            mode={lightMode}
+            setMode={setLightMode}
+          />
+          <WidgetSection>
+            <Country country={country} />
+            <States country={country} />
+          </WidgetSection>
+        </Body>
+        <Footer />
+      </AppContainer>
+    </ThemeProvider>
   )
 }
 

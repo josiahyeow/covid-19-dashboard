@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import Theme from '../Theme'
 
 const CardStyle = styled.div`
-  color: ${Theme.color.text.lightest};
-  background: ${Theme.color.background.dark};
+  color: ${({ theme }) => theme.color.text.lightest};
+  background: ${({ theme }) => theme.color.background.dark};
   padding: 2rem;
   margin: 1rem;
   border-radius: 2rem;
@@ -12,6 +11,7 @@ const CardStyle = styled.div`
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
+  ${(props) => console.log(props)}
 `
 
 const Title = styled.h3`

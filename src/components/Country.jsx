@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect, useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components'
 import Card from './Card'
 import covid from '../data/covid'
 import Curve from './Curve'
-import Theme from '../Theme'
 
 const Statuses = styled.div`
   display: flex;
@@ -18,7 +17,7 @@ const Status = styled.div`
 
 const Label = styled.span`
   font-weight: bold;
-  color: ${Theme.color.text.lighter};
+  color: ${({ theme }) => theme.color.text.lighter};
 `
 
 const Data = styled.span`
@@ -41,6 +40,7 @@ const Flag = styled.img`
 `
 
 const Country = ({ country }) => {
+  const themeContext = useContext(ThemeContext)
   const [data, setData] = useState({
     country: '-',
     cases: '-',
@@ -86,15 +86,15 @@ const Country = ({ country }) => {
           </Status>
           <Status>
             <Label>Active</Label>
-            <Data color={Theme.color.palette.red}>{active}</Data>
+            <Data color={themeContext.color.palette.red}>{active}</Data>
           </Status>
           <Status>
             <Label>Recovered</Label>
-            <Data color={Theme.color.palette.green}>{recovered}</Data>
+            <Data color={themeContext.color.palette.green}>{recovered}</Data>
           </Status>
           <Status>
             <Label>Deaths</Label>
-            <Data color={Theme.color.palette.grey}>{deaths}</Data>
+            <Data color={themeContext.color.palette.grey}>{deaths}</Data>
           </Status>
         </Statuses>
         <ChartContainer>
