@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   margin: 0 auto;
-  margin-bottom: 2rem;
 `
 const Switch = styled.label`
   display: flex;

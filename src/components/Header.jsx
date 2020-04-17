@@ -15,6 +15,7 @@ const Container = styled.div`
 const Title = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem;
@@ -66,6 +67,10 @@ const CountrySelect = styled.select`
   }
 `
 
+const Spacer = styled.div`
+  padding: 0.65rem;
+`
+
 const Header = ({ currentCountry, setCountry, mode, setMode }) => {
   const [countries, setCountries] = useState()
 
@@ -81,8 +86,9 @@ const Header = ({ currentCountry, setCountry, mode, setMode }) => {
       <Title>
         <Covid>COVID-19</Covid>
         <Text>Dashboard</Text>
+        <Spacer />
+        <ThemeSwitch mode={mode} setMode={setMode} />
       </Title>
-      <ThemeSwitch mode={mode} setMode={setMode} />
       <SelectStyle>
         <CountrySelect
           value={currentCountry}
