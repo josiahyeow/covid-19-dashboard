@@ -26,8 +26,9 @@ const WidgetSection = styled.section`
 `
 
 const App = () => {
+  const stored = localStorage.getItem('isLightMode')
   const [country, setCountry] = useState('Australia')
-  const [lightMode, setLightMode] = useState(true)
+  const [lightMode, setLightMode] = useState(stored === 'true' ? true : false)
 
   return (
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>

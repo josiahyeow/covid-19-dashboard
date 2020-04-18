@@ -3,6 +3,7 @@ import styled, { ThemeContext } from 'styled-components'
 import Card from './Card'
 import covid from '../data/covid'
 import Curve from './Curve'
+import Difference from './Difference'
 
 const Statuses = styled.div`
   display: flex;
@@ -23,6 +24,8 @@ const Label = styled.span`
 const Data = styled.span`
   color: ${({ color }) => color};
   font-size: 2rem;
+  display: flex;
+  align-items: center;
 `
 
 const ChartContainer = styled.div`
@@ -52,11 +55,14 @@ const Country = ({ country }) => {
       flag: '',
     },
   })
+  const [yesterday, setYesterday] = useState()
 
   useEffect(() => {
     async function fetchData() {
       const countryData = await covid.countries(country)
       setData(countryData)
+      const yesterdayData = await covid.countries(country, { yesterday: true })
+      setYesterday(yesterdayData)
     }
     fetchData()
   }, [country])
@@ -71,30 +77,38 @@ const Country = ({ country }) => {
     countryInfo,
   } = data
 
-  if (data) {
+  if (data && yesterday) {
     return (
       <Card title={countryName}>
         <Statuses>
           <Flag src={countryInfo.flag} />
           <Status>
             <Label>Cases</Label>
-            <Data>{cases}</Data>
-          </Status>
-          <Status>
-            <Label>Today</Label>
-            <Data> {todayCases}</Data>
+            <Data>
+              {cases}
+              <Difference yesterday={yesterday.cases} today={cases} />
+            </Data>
           </Status>
           <Status>
             <Label>Active</Label>
-            <Data color={themeContext.color.palette.red}>{active}</Data>
+            <Data color={themeContext.color.palette.red}>
+              {active}
+              <Difference yesterday={yesterday.active} today={active} />
+            </Data>
           </Status>
           <Status>
             <Label>Recovered</Label>
-            <Data color={themeContext.color.palette.green}>{recovered}</Data>
+            <Data color={themeContext.color.palette.green}>
+              {recovered}
+              <Difference yesterday={yesterday.recovered} today={recovered} />
+            </Data>
           </Status>
           <Status>
             <Label>Deaths</Label>
-            <Data color={themeContext.color.palette.grey}>{deaths}</Data>
+            <Data color={themeContext.color.palette.grey}>
+              {deaths}
+              <Difference yesterday={yesterday.deaths} today={deaths} />
+            </Data>
           </Status>
         </Statuses>
         <ChartContainer>

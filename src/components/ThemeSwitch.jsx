@@ -67,7 +67,15 @@ const ThemeSwitch = ({ mode, setMode }) => {
         htmlFor="checkbox"
         title={`Change color scheme to ${mode ? 'dark' : 'light'}`}
       >
-        <Input type="checkbox" id="checkbox" onChange={() => setMode(!mode)} />
+        <Input
+          type="checkbox"
+          id="checkbox"
+          onChange={() => {
+            setMode(!mode)
+            localStorage.setItem('isLightMode', !mode)
+          }}
+          checked={mode}
+        />
         <Slider className="slider round"></Slider>
       </Switch>
     </Container>

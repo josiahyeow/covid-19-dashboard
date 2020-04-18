@@ -7,11 +7,10 @@ const CardStyle = styled.div`
   padding: 2rem;
   margin: 1rem;
   border-radius: 2rem;
-  width: 23rem;
+  width: 25rem;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
-  ${(props) => console.log(props)}
 `
 
 const Title = styled.h3`
