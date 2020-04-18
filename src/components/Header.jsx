@@ -42,7 +42,7 @@ const SelectStyle = styled.div`
   &::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f078';
-    font-weight: 900;
+    font-weight: 600;
     font-size: 1rem;
     top: 18px;
     right: 16px;
@@ -54,7 +54,6 @@ const SelectStyle = styled.div`
 `
 
 const CountrySelect = styled.select`
-  font-weight: bold;
   font-size: 1rem;
   color: ${({ theme }) => theme.color.text.lightest};
   background: ${({ theme }) => theme.color.background.darkest};

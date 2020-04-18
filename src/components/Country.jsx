@@ -17,7 +17,6 @@ const Status = styled.div`
 `
 
 const Label = styled.span`
-  font-weight: bold;
   color: ${({ theme }) => theme.color.text.lighter};
 `
 
@@ -83,32 +82,48 @@ const Country = ({ country }) => {
         <Statuses>
           <Flag src={countryInfo.flag} />
           <Status>
-            <Label>Cases</Label>
             <Data>
               {cases}
-              <Difference yesterday={yesterday.cases} today={cases} />
+              <Difference
+                yesterday={yesterday.cases}
+                today={cases}
+                desired={'-'}
+              />
             </Data>
+            <Label>Cases</Label>
           </Status>
           <Status>
-            <Label>Active</Label>
             <Data color={themeContext.color.palette.red}>
               {active}
-              <Difference yesterday={yesterday.active} today={active} />
+              <Difference
+                yesterday={yesterday.active}
+                today={active}
+                desired={'-'}
+              />
             </Data>
+            <Label>Active</Label>
           </Status>
           <Status>
-            <Label>Recovered</Label>
             <Data color={themeContext.color.palette.green}>
               {recovered}
-              <Difference yesterday={yesterday.recovered} today={recovered} />
+              <Difference
+                yesterday={yesterday.recovered}
+                today={recovered}
+                desired={'+'}
+              />
             </Data>
+            <Label>Recovered</Label>
           </Status>
           <Status>
-            <Label>Deaths</Label>
             <Data color={themeContext.color.palette.grey}>
               {deaths}
-              <Difference yesterday={yesterday.deaths} today={deaths} />
+              <Difference
+                yesterday={yesterday.deaths}
+                today={deaths}
+                desired={'-'}
+              />
             </Data>
+            <Label>Deaths</Label>
           </Status>
         </Statuses>
         <ChartContainer>

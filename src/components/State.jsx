@@ -15,7 +15,6 @@ const Status = styled.div`
 `
 
 const Label = styled.span`
-  font-weight: bold;
   color: ${({ theme }) => theme.color.text.lighter};
 `
 
@@ -45,24 +44,24 @@ const State = ({ country, state, data }) => {
       <Card title={state}>
         <Statuses>
           <Status>
-            <Label>Cases</Label>
             <Data>{confirmed}</Data>
+            <Label>Cases</Label>
           </Status>
           <Status>
-            <Label>Active</Label>
             <Data color={themeContext.color.palette.red}>
               {Number.isInteger(confirmed)
                 ? confirmed - recovered - deaths
                 : '-'}
             </Data>
+            <Label>Active</Label>
           </Status>
           <Status>
-            <Label>Recovered</Label>
             <Data color={themeContext.color.palette.green}>{recovered}</Data>
+            <Label>Recovered</Label>
           </Status>
           <Status>
-            <Label>Deaths</Label>
             <Data color={themeContext.color.palette.grey}>{deaths}</Data>
+            <Label>Deaths</Label>
           </Status>
         </Statuses>
         <ChartContainer>
