@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import covid from '../data/covid'
-import ThemeSwitch from './ThemeSwitch'
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +8,10 @@ const Container = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin: 1rem;
-  padding: 1rem 0;
+  padding-top: 1rem;
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 0;
+  }
 `
 
 const Title = styled.div`
@@ -18,7 +20,9 @@ const Title = styled.div`
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 2rem;
+  }
 `
 
 const Text = styled.span`
@@ -31,14 +35,14 @@ const Covid = styled.span`
   background-color: ${({ theme }) => theme.color.text.lightest};
   padding: 0.5rem;
   margin-right: 0.5rem;
-  border-radius: 8px;
+  border-radius: 1rem;
+  cursor: pointer;
 `
 
 const SelectStyle = styled.div`
   color: ${({ theme }) => theme.color.text.lightest};
   position: relative;
   border-radius: 1rem;
-  margin-bottom: 2rem;
   &::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f078';
@@ -56,18 +60,15 @@ const SelectStyle = styled.div`
 const CountrySelect = styled.select`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.text.lightest};
-  background: ${({ theme }) => theme.color.background.darkest};
+  background: ${({ theme }) => theme.color.background.dark};
   border: none;
+  border-radius: 1rem;
   padding: 1rem;
   -webkit-appearance: none;
   appearance: none;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
-`
-
-const Spacer = styled.div`
-  padding: 0.65rem;
 `
 
 const Header = ({ currentCountry, setCountry, mode, setMode }) => {
@@ -83,10 +84,15 @@ const Header = ({ currentCountry, setCountry, mode, setMode }) => {
   return (
     <Container>
       <Title>
-        <Covid>COVID-19</Covid>
+        <Covid
+          onClick={() => {
+            setMode(!mode)
+            localStorage.setItem('isLightMode', !mode)
+          }}
+        >
+          COVID-19
+        </Covid>
         <Text>Dashboard</Text>
-        <Spacer />
-        <ThemeSwitch mode={mode} setMode={setMode} />
       </Title>
       <SelectStyle>
         <CountrySelect
