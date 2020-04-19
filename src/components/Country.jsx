@@ -76,6 +76,8 @@ const Country = ({ country }) => {
     countryInfo,
   } = data
 
+  console.log(data, yesterday)
+
   if (data && yesterday) {
     return (
       <Card title={countryName}>
@@ -120,7 +122,7 @@ const Country = ({ country }) => {
               <Difference
                 yesterday={yesterday.deaths}
                 today={deaths}
-                desired={'-'}
+                desired={'neutral'}
               />
             </Data>
             <Label>Deaths</Label>

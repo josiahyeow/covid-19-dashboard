@@ -17,8 +17,7 @@ const StyledDifference = styled.span`
         return `color: ${theme.color.palette.red};
       background-color: rgba(253, 65, 60, 0.05);`
       default:
-        return `color: ${theme.color.palette.orange};
-        background-color: rgba(254, 188, 44, 0.05);`
+        return `display: none;`
     }
   }}
 `
@@ -47,7 +46,6 @@ const getDifference = (yesterday, today, desired) => {
 
 const Difference = ({ yesterday, today, desired }) => {
   const difference = getDifference(yesterday, today, desired)
-  console.log('hello', difference)
 
   return (
     <StyledDifference variant={difference.variant}>
