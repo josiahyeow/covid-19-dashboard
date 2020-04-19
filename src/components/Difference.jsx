@@ -8,7 +8,6 @@ const StyledDifference = styled.span`
   padding: 4px;
   border-radius: 6px;
   ${({ variant, theme }) => {
-    console.log(variant)
     switch (variant) {
       case 'good':
         return `color: ${theme.color.palette.green};
