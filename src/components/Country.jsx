@@ -41,6 +41,11 @@ const Flag = styled.img`
   margin: 0rem 1rem 1rem 0rem;
 `
 
+const Updated = styled.div`
+  margin-top: 1rem;
+  font-size: 0.7rem;
+`
+
 const Country = ({ country }) => {
   const themeContext = useContext(ThemeContext)
   const [data, setData] = useState({
@@ -69,7 +74,7 @@ const Country = ({ country }) => {
   const {
     country: countryName,
     cases,
-    todayCases,
+    updated,
     deaths,
     recovered,
     active,
@@ -131,6 +136,14 @@ const Country = ({ country }) => {
         <ChartContainer>
           <Curve country={country} />
         </ChartContainer>
+        <Updated>
+          Last updated{' '}
+          {new Date(updated).toLocaleDateString(undefined, {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}
+        </Updated>
       </Card>
     )
   } else {
