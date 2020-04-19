@@ -11,6 +11,7 @@ const CardStyle = styled.div`
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
+  transition: all 0.25s ease-in-out;
 `
 
 const Title = styled.h3`

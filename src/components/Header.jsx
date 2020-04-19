@@ -9,9 +9,6 @@ const Container = styled.div`
   flex-wrap: wrap;
   margin: 1rem;
   padding-top: 1rem;
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 0;
-  }
 `
 
 const Title = styled.div`
@@ -26,6 +23,7 @@ const Title = styled.div`
 `
 
 const Text = styled.span`
+  margin-left: 0.5rem;
   color: ${({ theme }) => theme.color.text.lightest};
   padding: 0.5rem 0;
 `
@@ -33,16 +31,19 @@ const Text = styled.span`
 const Covid = styled.span`
   color: ${({ theme }) => theme.color.background.darkest};
   background-color: ${({ theme }) => theme.color.text.lightest};
-  padding: 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.01);
+    transition: all 0.25s ease-in-out;
+  }
 `
 
 const SelectStyle = styled.div`
   color: ${({ theme }) => theme.color.text.lightest};
   position: relative;
-  border-radius: 1rem;
+  border-radius: 2rem;
   &::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f078';
@@ -62,7 +63,7 @@ const CountrySelect = styled.select`
   color: ${({ theme }) => theme.color.text.lightest};
   background: ${({ theme }) => theme.color.background.dark};
   border: none;
-  border-radius: 1rem;
+  border-radius: 2rem;
   padding: 1rem;
   -webkit-appearance: none;
   appearance: none;

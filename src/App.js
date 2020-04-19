@@ -17,6 +17,7 @@ const AppContainer = styled.div`
   }
   min-height: 98vh;
   background-color: ${({ theme }) => theme.color.background.darkest};
+  transition: all 0.25s ease-in-out;
 `
 const Body = styled.div``
 
