@@ -122,14 +122,7 @@ const Country = ({ country }) => {
             <Label>Recovered</Label>
           </Status>
           <Status>
-            <Data color={themeContext.color.palette.grey}>
-              {deaths}
-              <Difference
-                yesterday={yesterday.deaths}
-                today={deaths}
-                desired={'neutral'}
-              />
-            </Data>
+            <Data color={themeContext.color.palette.grey}>{deaths}</Data>
             <Label>Deaths</Label>
           </Status>
         </Statuses>
