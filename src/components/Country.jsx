@@ -81,8 +81,6 @@ const Country = ({ country }) => {
     countryInfo,
   } = data
 
-  console.log(data, yesterday)
-
   if (data && yesterday) {
     return (
       <Card title={countryName}>
