@@ -75,7 +75,7 @@ const State = ({ country, state, data }) => {
         </ChartContainer>
         <Updated>
           Last updated{' '}
-          {new Date(updatedAt).toLocaleDateString(undefined, {
+          {new Date(updatedAt.replace(' ', 'T')).toLocaleDateString(undefined, {
             hour: 'numeric',
             minute: 'numeric',
             hour12: true,
