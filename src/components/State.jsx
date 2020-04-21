@@ -27,6 +27,11 @@ const ChartContainer = styled.div`
   margin-top: 1rem;
   height: 12rem;
 `
+const Updated = styled.div`
+  color: ${({ theme }) => theme.color.text.lighter};
+  margin-top: 1rem;
+  font-size: 0.7rem;
+`
 
 const State = ({ country, state, data }) => {
   const themeContext = useContext(ThemeContext)
@@ -37,6 +42,7 @@ const State = ({ country, state, data }) => {
 
   if (stateData) {
     const {
+      updatedAt,
       stats: { confirmed, deaths, recovered },
     } = stateData
 
@@ -67,6 +73,14 @@ const State = ({ country, state, data }) => {
         <ChartContainer>
           <Curve country={country} state={state} />
         </ChartContainer>
+        <Updated>
+          Last updated{' '}
+          {new Date(updatedAt).toLocaleDateString(undefined, {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}
+        </Updated>
       </Card>
     )
   } else {

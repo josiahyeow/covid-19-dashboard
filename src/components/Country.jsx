@@ -42,6 +42,7 @@ const Flag = styled.img`
 `
 
 const Updated = styled.div`
+  color: ${({ theme }) => theme.color.text.lighter};
   margin-top: 1rem;
   font-size: 0.7rem;
 `
