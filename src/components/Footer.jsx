@@ -31,7 +31,9 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Sources>
-        Data sourced from <Link href={NOVELCOVID_URL}>NovelCOVID API</Link>
+        Data sourced from <Link href={NOVELCOVID_URL}>NovelCOVID API.</Link> For
+        the most up to date data, please refer to your local Government's
+        official website.
       </Sources>
       <Profile>
         Josiah Yeow{' '}
@@ -40,7 +42,8 @@ const Footer = () => {
         </Link>
         <Link href={LINKEDIN_URL}>
           <i className="fab fa-linkedin" />
-        </Link>
+        </Link>{' '}
+        | 2020
       </Profile>
     </FooterContainer>
   )
