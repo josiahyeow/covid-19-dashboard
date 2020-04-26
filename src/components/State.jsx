@@ -1,87 +1,71 @@
-import React, { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components'
-import Card from './Card'
-import Curve from './Curve'
+import React, { useState, useEffect } from 'react'
+import covid from '../data/covid'
+import Status from './Status'
 
-const Statuses = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const Status = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0rem 1rem 1rem 0rem;
-`
-
-const Label = styled.span`
-  color: ${({ theme }) => theme.color.text.lighter};
-`
-
-const Data = styled.span`
-  color: ${({ color }) => color};
-  font-size: 2rem;
-`
-
-const ChartContainer = styled.div`
-  margin-top: 1rem;
-  height: 12rem;
-`
-const Updated = styled.div`
-  color: ${({ theme }) => theme.color.text.lighter};
-  margin-top: 1rem;
-  font-size: 0.7rem;
-`
+const calculateYesterday = (history) => {
+  const casesArray = Object.values(history.cases)
+  const deathsArray = Object.values(history.deaths)
+  const recoveredArray = Object.values(history.recovered)
+  const cases = casesArray[casesArray.length - 2]
+  const deaths = deathsArray[deathsArray.length - 2]
+  const recovered = recoveredArray[recoveredArray.length - 2]
+  const active = cases - deaths - recovered
+  return {
+    cases,
+    deaths,
+    recovered,
+    active,
+  }
+}
 
 const State = ({ country, state, data }) => {
-  const themeContext = useContext(ThemeContext)
+  const [today, setToday] = useState()
+  const [yesterday, setYesterday] = useState()
+  const [history, setHistory] = useState()
 
-  const stateData = data.find(
-    (stateObj) => stateObj.country === country && stateObj.province === state
-  )
+  useEffect(() => {
+    async function fetchData() {
+      const { timeline } = await covid.historical(null, country, state)
+      if (timeline) {
+        setHistory(timeline)
+        setYesterday(calculateYesterday(timeline))
+      } else {
+        setHistory(undefined)
+      }
+    }
+    fetchData()
+    setToday(
+      data.find(
+        (stateObj) =>
+          stateObj.country === country && stateObj.province === state
+      )
+    )
+  }, [country, state])
 
-  if (stateData) {
+  if (today && yesterday) {
     const {
+      province,
+      country,
       updatedAt,
-      stats: { confirmed, deaths, recovered },
-    } = stateData
-
+      stats: { confirmed, recovered, deaths },
+    } = today
     return (
-      <Card title={state}>
-        <Statuses>
-          <Status>
-            <Data>{confirmed}</Data>
-            <Label>Cases</Label>
-          </Status>
-          <Status>
-            <Data color={themeContext.color.palette.red}>
-              {Number.isInteger(confirmed)
-                ? confirmed - recovered - deaths
-                : '-'}
-            </Data>
-            <Label>Active</Label>
-          </Status>
-          <Status>
-            <Data color={themeContext.color.palette.green}>{recovered}</Data>
-            <Label>Recovered</Label>
-          </Status>
-          <Status>
-            <Data color={themeContext.color.palette.grey}>{deaths}</Data>
-            <Label>Deaths</Label>
-          </Status>
-        </Statuses>
-        <ChartContainer>
-          <Curve country={country} state={state} />
-        </ChartContainer>
-        <Updated>
-          Last updated{' '}
-          {new Date(updatedAt.replace(' ', 'T')).toLocaleDateString(undefined, {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-          })}
-        </Updated>
-      </Card>
+      <Status
+        location={{
+          name: province,
+          country: country,
+          type: 'state',
+        }}
+        today={{
+          cases: confirmed,
+          active: confirmed - recovered - deaths,
+          recovered: recovered,
+          deaths,
+          updated: updatedAt,
+        }}
+        yesterday={yesterday}
+        history={history}
+      />
     )
   } else {
     return <></>

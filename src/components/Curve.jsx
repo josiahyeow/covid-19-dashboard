@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { ResponsiveContainer, XAxis, YAxis, LineChart, Line } from 'recharts'
-import covid from '../data/covid'
-import { calculateActive } from '../data/calculateActive'
 
 const NoData = styled.div`
   display: flex;
@@ -12,28 +10,33 @@ const NoData = styled.div`
   color: ${({ theme }) => theme.color.text.light};
 `
 
+const calculateActive = ({ cases, deaths, recovered }) => {
+  const confirmedArray = Object.values(cases)
+  const deathsArray = Object.values(deaths)
+  const recoveredArray = Object.values(recovered)
+
+  const active = []
+  confirmedArray.forEach((confirmed, i) => {
+    active.push(confirmed - recoveredArray[i] - deathsArray[i])
+  })
+  return active
+}
+
 const convertToDataArray = (data) => {
   let dataArray = []
   data.map((value, i) => dataArray.push({ day: i, activeCases: value }))
   return dataArray
 }
 
-const Curve = ({ country, state }) => {
+const Curve = ({ history }) => {
   const [activeCases, setActiveCases] = useState()
   const themeContext = useContext(ThemeContext)
 
   useEffect(() => {
-    async function fetchData() {
-      const { timeline } = await covid.historical(null, country, state)
-      if (timeline) {
-        const activeData = calculateActive(timeline)
-        setActiveCases(convertToDataArray(activeData))
-      } else {
-        setActiveCases(undefined)
-      }
+    if (history) {
+      setActiveCases(convertToDataArray(calculateActive(history)))
     }
-    fetchData()
-  }, [country, state])
+  }, [history])
 
   if (activeCases) {
     return (
