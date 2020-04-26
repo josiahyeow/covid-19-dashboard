@@ -61,7 +61,7 @@ const State = ({ country, state, data }) => {
           active: confirmed - recovered - deaths,
           recovered: recovered,
           deaths,
-          updated: updatedAt,
+          updated: updatedAt.replace(' ', 'T'),
         }}
         yesterday={yesterday}
         history={history}
