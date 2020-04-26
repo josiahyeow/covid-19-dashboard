@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import covid from '../data/covid'
 import Status from './Status'
 
-const calculateYesterday = (history) => {
+const getDay = (history, daysAgo = 0) => {
+  const offset = daysAgo + 1
   const casesArray = Object.values(history.cases)
   const deathsArray = Object.values(history.deaths)
   const recoveredArray = Object.values(history.recovered)
-  const cases = casesArray[casesArray.length - 2]
-  const deaths = deathsArray[deathsArray.length - 2]
-  const recovered = recoveredArray[recoveredArray.length - 2]
+  const cases = casesArray[casesArray.length - offset]
+  const deaths = deathsArray[deathsArray.length - offset]
+  const recovered = recoveredArray[recoveredArray.length - offset]
   const active = cases - deaths - recovered
   return {
     cases,
@@ -28,40 +29,29 @@ const State = ({ country, state, data }) => {
       const { timeline } = await covid.historical(null, country, state)
       if (timeline) {
         setHistory(timeline)
-        setYesterday(calculateYesterday(timeline))
+        setToday(getDay(timeline))
+        setYesterday(getDay(timeline, 1))
       } else {
         setHistory(undefined)
       }
     }
     fetchData()
-    setToday(
-      data.find(
-        (stateObj) =>
-          stateObj.country === country && stateObj.province === state
-      )
-    )
   }, [country, state])
 
   if (today && yesterday) {
-    const {
-      province,
-      country,
-      updatedAt,
-      stats: { confirmed, recovered, deaths },
-    } = today
+    const { cases, active, recovered, deaths } = today
     return (
       <Status
         location={{
-          name: province,
+          name: state,
           country: country,
           type: 'state',
         }}
         today={{
-          cases: confirmed,
-          active: confirmed - recovered - deaths,
-          recovered: recovered,
+          cases,
+          active,
+          recovered,
           deaths,
-          updated: updatedAt.replace(' ', 'T'),
         }}
         yesterday={yesterday}
         history={history}

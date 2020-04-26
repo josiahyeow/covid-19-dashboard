@@ -44,8 +44,11 @@ const App = () => {
           />
           <WidgetSection>
             <Card title={'Known dataset issue'}>
-              26/04/2020 2:45pm: Incorrect recovered number in Victoria dataset
-              causing a spike in active cases to be shown.
+              <li>
+                {' '}
+                26/04/2020 2:45pm: Incorrect recovered number in VIC and NT
+                dataset causing a spike in active cases to be shown.
+              </li>
             </Card>
             <Country country={country} />
             <States country={country} />

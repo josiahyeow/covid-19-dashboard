@@ -103,14 +103,16 @@ const Status = ({ location, today, yesterday, history }) => {
         <ChartContainer>
           <Curve history={history} />
         </ChartContainer>
-        <Updated>
-          Last updated{' '}
-          {new Date(updated).toLocaleDateString(undefined, {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-          })}
-        </Updated>
+        {updated && (
+          <Updated>
+            Last updated{' '}
+            {new Date(updated).toLocaleDateString(undefined, {
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })}
+          </Updated>
+        )}
       </Card>
     )
   } else {
