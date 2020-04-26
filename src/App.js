@@ -6,6 +6,7 @@ import States from './components/States'
 import Footer from './components/Footer'
 import darkTheme from './themes/dark'
 import lightTheme from './themes/light'
+import Card from './components/Card'
 
 const AppContainer = styled.div`
   display: flex;
@@ -42,6 +43,10 @@ const App = () => {
             setMode={setLightMode}
           />
           <WidgetSection>
+            <Card title={'Known dataset issue'}>
+              26/04/2020 2:45pm: Incorrect recovered number in Victoria dataset
+              causing a spike in active cases to be shown.
+            </Card>
             <Country country={country} />
             <States country={country} />
           </WidgetSection>
