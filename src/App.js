@@ -43,13 +43,6 @@ const App = () => {
             setMode={setLightMode}
           />
           <WidgetSection>
-            <Card title={'Known dataset issue'}>
-              <li>
-                {' '}
-                26/04/2020 2:45pm: Incorrect recovered number in VIC and NT
-                dataset causing a spike in active cases to be shown.
-              </li>
-            </Card>
             <Country country={country} />
             <States country={country} />
           </WidgetSection>
