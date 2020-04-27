@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Card from './Card'
 import Curve from './Curve'
@@ -13,6 +13,18 @@ const StatusItem = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0rem 1rem 1rem 0rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  &:hover {
+    transition: all 0.1s ease-in-out;
+    background: ${({ theme }) => theme.color.background.darker};
+  }
+  ${({ selected, theme }) => {
+    if (selected) {
+      return `background: ${theme.color.background.darkest}`
+    }
+  }}
 `
 
 const Label = styled.span`
@@ -48,6 +60,7 @@ const Updated = styled.div`
 
 const Status = ({ location, today, yesterday, history }) => {
   const themeContext = useContext(ThemeContext)
+  const [mode, setMode] = useState('active')
 
   if (today && yesterday) {
     const { cases, active, recovered, deaths, updated } = today
@@ -55,7 +68,10 @@ const Status = ({ location, today, yesterday, history }) => {
       <Card title={location.name}>
         <Statuses>
           {location.type === 'country' && <Flag src={location.flag} />}
-          <StatusItem>
+          <StatusItem
+            onClick={() => setMode('cases')}
+            selected={mode === 'cases'}
+          >
             <Data>
               {cases}
               <Difference
@@ -66,7 +82,10 @@ const Status = ({ location, today, yesterday, history }) => {
             </Data>
             <Label>Cases</Label>
           </StatusItem>
-          <StatusItem>
+          <StatusItem
+            onClick={() => setMode('active')}
+            selected={mode === 'active'}
+          >
             <Data color={themeContext.color.palette.red}>
               {active}
               <Difference
@@ -77,7 +96,10 @@ const Status = ({ location, today, yesterday, history }) => {
             </Data>
             <Label>Active</Label>
           </StatusItem>
-          <StatusItem>
+          <StatusItem
+            onClick={() => setMode('recovered')}
+            selected={mode === 'recovered'}
+          >
             <Data color={themeContext.color.palette.green}>
               {recovered}
               <Difference
@@ -88,7 +110,10 @@ const Status = ({ location, today, yesterday, history }) => {
             </Data>
             <Label>Recovered</Label>
           </StatusItem>
-          <StatusItem>
+          <StatusItem
+            onClick={() => setMode('deaths')}
+            selected={mode === 'deaths'}
+          >
             <Data color={themeContext.color.palette.grey}>
               {deaths}
               <Difference
@@ -101,7 +126,7 @@ const Status = ({ location, today, yesterday, history }) => {
           </StatusItem>
         </Statuses>
         <ChartContainer>
-          <Curve history={history} />
+          <Curve history={history} mode={mode} />
         </ChartContainer>
         {updated && (
           <Updated>

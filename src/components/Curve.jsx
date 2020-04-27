@@ -10,8 +10,6 @@ const NoData = styled.div`
   color: ${({ theme }) => theme.color.text.light};
 `
 
-const ModeSwitch = styled.div``
-
 const calculateActive = ({ cases, deaths, recovered }) => {
   const confirmedArray = Object.values(cases)
   const deathsArray = Object.values(deaths)
@@ -30,10 +28,7 @@ const convertToDataArray = (data) => {
   return dataArray
 }
 
-const MODES = ['cases', 'active', 'recovered', 'deaths']
-
-const Curve = ({ history }) => {
-  const [mode, setMode] = useState(1)
+const Curve = ({ history, mode }) => {
   const [data, setData] = useState()
   const themeContext = useContext(ThemeContext)
 
@@ -48,23 +43,15 @@ const Curve = ({ history }) => {
     }
   }, [history])
 
-  const changeMode = () => {
-    if (mode < MODES.length - 1) {
-      setMode(mode + 1)
-    } else {
-      setMode(0)
-    }
-  }
-
   const modeColor = () => {
     switch (mode) {
-      case 0:
+      case 'cases':
         return themeContext.color.text.lightest
-      case 1:
+      case 'active':
         return themeContext.color.palette.red
-      case 2:
+      case 'recovered':
         return themeContext.color.palette.green
-      case 3:
+      case 'deaths':
         return themeContext.color.palette.darkGrey
       default:
         return themeContext.color.palette.red
@@ -73,35 +60,33 @@ const Curve = ({ history }) => {
 
   if (data) {
     return (
-      <ModeSwitch onClick={() => changeMode()}>
-        <ResponsiveContainer width={'100%'} height={'100%'}>
-          <LineChart data={data[MODES[mode]]}>
-            <XAxis
-              dataKey="name"
-              label={{
-                value: 'Days',
-                position: 'insideBottom',
-                style: { fill: themeContext.color.palette.darkGrey },
-              }}
-            />
-            <YAxis
-              label={{
-                value: 'Active cases',
-                angle: -90,
-                position: 'insideBottomLeft',
-                style: { fill: themeContext.color.palette.darkGrey },
-              }}
-            />
-            <Line
-              type="natural"
-              dataKey="activeCases"
-              stroke={modeColor()}
-              strokeWidth={3}
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </ModeSwitch>
+      <ResponsiveContainer width={'100%'} height={'100%'}>
+        <LineChart data={data[mode]}>
+          <XAxis
+            dataKey="name"
+            label={{
+              value: 'Days',
+              position: 'insideBottom',
+              style: { fill: themeContext.color.palette.darkGrey },
+            }}
+          />
+          <YAxis
+            label={{
+              value: 'Active cases',
+              angle: -90,
+              position: 'insideBottomLeft',
+              style: { fill: themeContext.color.palette.darkGrey },
+            }}
+          />
+          <Line
+            type="natural"
+            dataKey="activeCases"
+            stroke={modeColor()}
+            strokeWidth={3}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     )
   } else {
     return <NoData>No historical data available</NoData>
