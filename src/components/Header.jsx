@@ -17,8 +17,9 @@ const Title = styled.div`
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  @media only screen and (min-width: 600px) {
+    margin-bottom: 0;
   }
 `
 
@@ -44,6 +45,7 @@ const SelectStyle = styled.div`
   color: ${({ theme }) => theme.color.text.lightest};
   position: relative;
   border-radius: 2rem;
+  width: 100%;
   &::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f078';
@@ -53,8 +55,8 @@ const SelectStyle = styled.div`
     right: 16px;
     position: absolute;
   }
-  @media only screen and (max-width: 600px) {
-    width: 100%;
+  @media only screen and (min-width: 600px) {
+    width: auto;
   }
 `
 
@@ -67,8 +69,9 @@ const CountrySelect = styled.select`
   padding: 1rem;
   -webkit-appearance: none;
   appearance: none;
-  @media only screen and (max-width: 600px) {
-    width: 100%;
+  width: 100%;
+  @media only screen and (min-width: 600px) {
+    width: auto;
   }
 `
 

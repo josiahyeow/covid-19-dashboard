@@ -16,16 +16,18 @@ const StatusItem = styled.div`
   padding: 0.5rem;
   border-radius: 1rem;
   cursor: pointer;
-  &:hover {
-    transition: all 0.1s ease-in-out;
-    background: ${({ theme }) => theme.color.background.darkest};
-  }
   color: ${({ theme }) => theme.color.text.lighter};
   ${({ selected, theme }) => {
     if (selected) {
       return `background: ${theme.color.background.dark}; color: ${theme.color.text.lightest}`
     }
   }}
+  @media only screen and (min-width: 600px) {
+    &:hover {
+      transition: all 0.1s ease-in-out;
+      background: ${({ theme }) => theme.color.background.darkest};
+    }
+  }
 `
 
 const Label = styled.span``

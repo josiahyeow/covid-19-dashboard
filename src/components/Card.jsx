@@ -7,11 +7,11 @@ const CardStyle = styled.div`
   padding: 2rem;
   margin: 1rem;
   border-radius: 2rem;
-  width: 25rem;
-  @media only screen and (max-width: 600px) {
-    width: 100%;
-  }
+  width: 100%;
   transition: all 0.25s ease-in-out;
+  @media only screen and (min-width: 600px) {
+    width: 25rem;
+  }
 `
 
 const Title = styled.h3`
