@@ -18,11 +18,11 @@ const StatusItem = styled.div`
   cursor: pointer;
   &:hover {
     transition: all 0.1s ease-in-out;
-    background: ${({ theme }) => theme.color.background.darker};
+    background: ${({ theme }) => theme.color.background.darkest};
   }
   ${({ selected, theme }) => {
     if (selected) {
-      return `background: ${theme.color.background.darkest}`
+      return `background: ${theme.color.background.dark}`
     }
   }}
 `

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const CardStyle = styled.div`
   color: ${({ theme }) => theme.color.text.lightest};
-  background: ${({ theme }) => theme.color.background.dark};
+  background: ${({ theme }) => theme.color.background.darker};
   padding: 2rem;
   margin: 1rem;
   border-radius: 2rem;

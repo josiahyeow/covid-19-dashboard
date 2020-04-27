@@ -61,7 +61,7 @@ const SelectStyle = styled.div`
 const CountrySelect = styled.select`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.text.lightest};
-  background: ${({ theme }) => theme.color.background.dark};
+  background: ${({ theme }) => theme.color.background.darker};
   border: none;
   border-radius: 2rem;
   padding: 1rem;
