@@ -20,16 +20,15 @@ const StatusItem = styled.div`
     transition: all 0.1s ease-in-out;
     background: ${({ theme }) => theme.color.background.darkest};
   }
+  color: ${({ theme }) => theme.color.text.lighter};
   ${({ selected, theme }) => {
     if (selected) {
-      return `background: ${theme.color.background.dark}`
+      return `background: ${theme.color.background.dark}; color: ${theme.color.text.lightest}`
     }
   }}
 `
 
-const Label = styled.span`
-  color: ${({ theme }) => theme.color.text.lighter};
-`
+const Label = styled.span``
 
 const Data = styled.span`
   color: ${({ color }) => color};
@@ -72,7 +71,7 @@ const Status = ({ location, today, yesterday, history }) => {
             onClick={() => setMode('cases')}
             selected={mode === 'cases'}
           >
-            <Data>
+            <Data color={themeContext.color.text.lightest}>
               {cases}
               <Difference
                 yesterday={yesterday.cases}
