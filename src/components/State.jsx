@@ -19,7 +19,7 @@ const getDay = (history, daysAgo = 0) => {
   }
 }
 
-const State = ({ country, state, data }) => {
+const State = ({ country, state }) => {
   const [today, setToday] = useState()
   const [yesterday, setYesterday] = useState()
   const [history, setHistory] = useState()
