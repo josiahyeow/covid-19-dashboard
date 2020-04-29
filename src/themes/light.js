@@ -1,14 +1,14 @@
 export default {
   color: {
     background: {
-      dark: '#ffffff',
-      darker: '#fefefe',
-      darkest: '#f7f7f7',
+      dark: '#f2f2f2',
+      darker: '#fafafa',
+      darkest: '#ffffff',
     },
     text: {
-      lightest: '#2a2e32',
-      lighter: '#272b2f',
-      light: '#212529',
+      lightest: '#1d1d1f',
+      lighter: '#515154',
+      light: '#86868b',
     },
     palette: {
       red: '#fd413c',
