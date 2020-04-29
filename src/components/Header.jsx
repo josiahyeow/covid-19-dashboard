@@ -30,13 +30,16 @@ const Text = styled.span`
 `
 
 const Covid = styled.span`
-  color: ${({ theme }) => theme.color.background.darkest};
-  background-color: ${({ theme }) => theme.color.text.lightest};
+  color: ${({ theme }) => theme.color.text.lightest};
+  background-color: ${({ theme }) => theme.color.background.darkest};
+  box-shadow: inset 0px 0px 0px 3px ${({ theme }) => theme.color.text.lightest};
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   cursor: pointer;
+  box-sizing: border-box;
   &:hover {
-    transform: scale(1.01);
+    color: ${({ theme }) => theme.color.background.darkest};
+    background-color: ${({ theme }) => theme.color.text.lightest};
     transition: all 0.25s ease-in-out;
   }
 `
