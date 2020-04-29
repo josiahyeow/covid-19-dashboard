@@ -9,6 +9,7 @@ const CardStyle = styled.div`
   margin: 1rem;
   border-radius: 2rem;
   width: 100%;
+  max-height: 32rem;
   transition: all 0.25s ease-in-out;
   @media only screen and (min-width: 600px) {
     width: 25rem;
