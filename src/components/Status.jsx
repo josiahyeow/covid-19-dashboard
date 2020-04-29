@@ -18,6 +18,7 @@ const StatusItem = styled.div`
   border-radius: 1rem;
   cursor: pointer;
   color: ${({ theme }) => theme.color.text.lighter};
+  max-height: 100%;
   ${({ selected, theme }) => {
     if (selected) {
       return `background: ${theme.color.background.dark}; color: ${theme.color.text.lightest}`
