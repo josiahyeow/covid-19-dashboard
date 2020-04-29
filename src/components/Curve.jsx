@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import Skeleton from 'react-loading-skeleton'
 import { ResponsiveContainer, XAxis, YAxis, LineChart, Line } from 'recharts'
 
 const NoData = styled.div`
@@ -33,6 +34,7 @@ const Curve = ({ history, mode }) => {
   const themeContext = useContext(ThemeContext)
 
   useEffect(() => {
+    setData(null)
     if (history) {
       setData({
         active: convertToDataArray(calculateActive(history)),
@@ -89,7 +91,11 @@ const Curve = ({ history, mode }) => {
       </ResponsiveContainer>
     )
   } else {
-    return <NoData>No historical data available</NoData>
+    return (
+      <ResponsiveContainer width={'100%'} height={'100%'}>
+        <Skeleton />
+      </ResponsiveContainer>
+    )
   }
 }
 

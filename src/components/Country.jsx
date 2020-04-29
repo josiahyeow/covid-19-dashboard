@@ -20,25 +20,24 @@ const Country = ({ country }) => {
         setHistory(undefined)
       }
     }
+    setToday(null)
+    setYesterday(null)
+    setHistory(null)
     fetchData()
   }, [country])
 
-  if (today && yesterday) {
-    return (
-      <Status
-        location={{
-          name: today.country,
-          flag: today.countryInfo.flag,
-          type: 'country',
-        }}
-        today={today}
-        yesterday={yesterday}
-        history={history}
-      />
-    )
-  } else {
-    return <></>
-  }
+  return (
+    <Status
+      location={{
+        name: today ? today.country : undefined,
+        flag: today ? today.countryInfo.flag : undefined,
+        type: 'country',
+      }}
+      today={today}
+      yesterday={yesterday}
+      history={history}
+    />
+  )
 }
 
 export default Country

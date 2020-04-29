@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Skeleton from 'react-loading-skeleton'
 
 const CardStyle = styled.div`
   color: ${({ theme }) => theme.color.text.lightest};
@@ -23,7 +24,7 @@ const Content = styled.div``
 const Card = ({ title, children }) => {
   return (
     <CardStyle>
-      <Title>{title}</Title>
+      <Title>{title || <Skeleton />}</Title>
       <Content>{children}</Content>
     </CardStyle>
   )

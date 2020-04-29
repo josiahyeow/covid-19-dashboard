@@ -38,28 +38,23 @@ const State = ({ country, state }) => {
     fetchData()
   }, [country, state])
 
-  if (today && yesterday) {
-    const { cases, active, recovered, deaths } = today
-    return (
-      <Status
-        location={{
-          name: state,
-          country: country,
-          type: 'state',
-        }}
-        today={{
-          cases,
-          active,
-          recovered,
-          deaths,
-        }}
-        yesterday={yesterday}
-        history={history}
-      />
-    )
-  } else {
-    return <></>
-  }
+  return (
+    <Status
+      location={{
+        name: state,
+        country: country,
+        type: 'state',
+      }}
+      today={{
+        cases: today ? today.cases : undefined,
+        active: today ? today.active : undefined,
+        recovered: today ? today.recovered : undefined,
+        deaths: today ? today.deaths : undefined,
+      }}
+      yesterday={yesterday}
+      history={history}
+    />
+  )
 }
 
 export default State

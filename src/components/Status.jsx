@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import Skeleton from 'react-loading-skeleton'
 import Card from './Card'
 import Curve from './Curve'
 import Difference from './Difference'
@@ -30,7 +31,9 @@ const StatusItem = styled.div`
   }
 `
 
-const Label = styled.span``
+const Label = styled.span`
+  ${({ loading }) => loading && `visibility: hidden;`}
+`
 
 const Data = styled.span`
   color: ${({ color }) => color};
@@ -53,97 +56,144 @@ const Flag = styled.img`
   margin: 0rem 1rem 1rem 0rem;
 `
 
+const FlagSkeleton = styled.div`
+  border-radius: 6px;
+  margin: 0rem 1rem 1rem 0rem;
+`
+
 const Updated = styled.div`
   color: ${({ theme }) => theme.color.text.lighter};
   margin-top: 1rem;
   font-size: 0.7rem;
 `
 
+const SkeletonWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1rem;
+`
+
+const StatusSkeleton = () => (
+  <SkeletonWrapper>
+    <Skeleton height={'3rem'} />
+  </SkeletonWrapper>
+)
+
 const Status = ({ location, today, yesterday, history }) => {
   const themeContext = useContext(ThemeContext)
-  const [mode, setMode] = useState('active')
+  const [mode, setMode] = useState()
 
-  if (today && yesterday) {
-    const { cases, active, recovered, deaths, updated } = today
-    return (
-      <Card title={location.name}>
-        <Statuses>
-          {location.type === 'country' && <Flag src={location.flag} />}
-          <StatusItem
-            onClick={() => setMode('cases')}
-            selected={mode === 'cases'}
-          >
-            <Data color={themeContext.color.text.lightest}>
-              {cases}
-              <Difference
-                yesterday={yesterday.cases}
-                today={cases}
-                desired={'-'}
-              />
-            </Data>
-            <Label>Cases</Label>
-          </StatusItem>
-          <StatusItem
-            onClick={() => setMode('active')}
-            selected={mode === 'active'}
-          >
+  useEffect(() => {
+    setMode(null)
+    if (yesterday) {
+      setMode('active')
+    }
+  }, [yesterday])
+
+  return (
+    <Card title={location && location.name}>
+      <Statuses>
+        {location &&
+          location.type === 'country' &&
+          (location.flag ? (
+            <Flag src={location.flag} />
+          ) : (
+            <FlagSkeleton>
+              <Skeleton width={'110px'} height={'55px'} />
+            </FlagSkeleton>
+          ))}
+        <StatusItem
+          onClick={() => setMode('cases')}
+          selected={mode === 'cases'}
+        >
+          {today && yesterday ? (
+            <>
+              <Data color={themeContext.color.text.lightest}>
+                {today.cases}
+                <Difference
+                  yesterday={yesterday.cases}
+                  today={today.cases}
+                  desired={'-'}
+                />
+              </Data>
+            </>
+          ) : (
+            <>
+              <StatusSkeleton />
+            </>
+          )}
+          <Label loading={!yesterday}>Cases</Label>
+        </StatusItem>
+        <StatusItem
+          onClick={() => setMode('active')}
+          selected={mode === 'active'}
+        >
+          {today && yesterday ? (
             <Data color={themeContext.color.palette.red}>
-              {active}
+              {today.active}
               <Difference
                 yesterday={yesterday.active}
-                today={active}
+                today={today.active}
                 desired={'-'}
               />
             </Data>
-            <Label>Active</Label>
-          </StatusItem>
-          <StatusItem
-            onClick={() => setMode('recovered')}
-            selected={mode === 'recovered'}
-          >
+          ) : (
+            <StatusSkeleton />
+          )}
+          <Label loading={!yesterday}>Active</Label>
+        </StatusItem>
+        <StatusItem
+          onClick={() => setMode('recovered')}
+          selected={mode === 'recovered'}
+        >
+          {today && yesterday ? (
             <Data color={themeContext.color.palette.green}>
-              {recovered}
+              {today.recovered}
               <Difference
                 yesterday={yesterday.recovered}
-                today={recovered}
-                desired={'+'}
-              />
-            </Data>
-            <Label>Recovered</Label>
-          </StatusItem>
-          <StatusItem
-            onClick={() => setMode('deaths')}
-            selected={mode === 'deaths'}
-          >
-            <Data color={themeContext.color.palette.grey}>
-              {deaths}
-              <Difference
-                yesterday={yesterday.deaths}
-                today={deaths}
+                today={today.recovered}
                 desired={'-'}
               />
             </Data>
-            <Label>Deaths</Label>
-          </StatusItem>
-        </Statuses>
-        <ChartContainer>
-          <Curve history={history} mode={mode} />
-        </ChartContainer>
-        {updated && (
-          <Updated>
-            Last updated{' '}
-            {new Date(updated).toLocaleDateString(undefined, {
-              hour: 'numeric',
-              minute: 'numeric',
-              hour12: true,
-            })}
-          </Updated>
-        )}
-      </Card>
-    )
-  } else {
-    return <></>
-  }
+          ) : (
+            <StatusSkeleton />
+          )}
+          <Label loading={!yesterday}>Recovered</Label>
+        </StatusItem>
+        <StatusItem
+          onClick={() => setMode('deaths')}
+          selected={mode === 'deaths'}
+        >
+          {today && yesterday ? (
+            <Data color={themeContext.color.palette.darkGrey}>
+              {today.deaths}
+              <Difference
+                yesterday={yesterday.deaths}
+                today={today.deaths}
+                desired={'-'}
+              />
+            </Data>
+          ) : (
+            <StatusSkeleton />
+          )}
+          <Label loading={!yesterday}>Deaths</Label>
+        </StatusItem>
+      </Statuses>
+      <ChartContainer>
+        <Curve history={history} mode={mode} />
+      </ChartContainer>
+      {today && today.updated && (
+        <Updated>
+          Last updated{' '}
+          {new Date(today.updated).toLocaleDateString(undefined, {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}
+        </Updated>
+      )}
+    </Card>
+  )
 }
 
 export default Status
