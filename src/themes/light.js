@@ -11,11 +11,11 @@ export default {
       light: '#86868b',
     },
     palette: {
-      red: '#fd413c',
-      orange: '#febc2c',
-      green: '#40f780',
-      grey: '#a6a7a9',
-      darkGrey: '#666768',
+      red: '#ff3b30',
+      orange: '#ff9500',
+      green: '#28cd4b',
+      grey: '#8e8e93',
+      darkGrey: '#5b5b60',
     },
   },
 }
