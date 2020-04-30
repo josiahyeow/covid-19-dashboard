@@ -37,10 +37,12 @@ const Covid = styled.span`
   border-radius: 2rem;
   cursor: pointer;
   box-sizing: border-box;
-  &:hover {
-    color: ${({ theme }) => theme.color.background.darkest};
-    background-color: ${({ theme }) => theme.color.text.lightest};
-    transition: all 0.25s ease-in-out;
+  @media only screen and (min-width: 600px) {
+    &:hover {
+      color: ${({ theme }) => theme.color.background.darkest};
+      background-color: ${({ theme }) => theme.color.text.lightest};
+      transition: all 0.25s ease-in-out;
+    }
   }
 `
 
