@@ -4297,9 +4297,9 @@ normalize-url@^1.0.0:
     sort-keys "^1.0.0"
 
 novelcovid@^1.1.4:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/novelcovid/-/novelcovid-1.2.6.tgz#ac5d2742287f3c92845a06182144a4420373b1b1"
-  integrity sha512-PDvg4y2Qct/ur9zINxCCsfTMKl5h5ojhjm5hG3DDV5J8O4a2qKzJd0x5dJtWWCefas0MaLlB3bgHVfYII4s7zQ==
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/novelcovid/-/novelcovid-1.2.7.tgz#dc8e00f1697285562fd0cb5eb52ad80bbbaa194a"
+  integrity sha512-Kfu4pzlBNpLSU+W4tC5oO5fEYB8k//TAK0FZUL/d/YvaEziMgfTlJkgipV5Nr60CwBZbixzyJp/H+gvx1BAyZg==
   dependencies:
     node-fetch "*"
 
