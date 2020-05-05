@@ -153,7 +153,7 @@ const Status = ({ location, today, yesterday, history }) => {
               <Difference
                 yesterday={yesterday.recovered}
                 today={today.recovered}
-                desired={'-'}
+                desired={'+'}
               />
             </Data>
           ) : (
