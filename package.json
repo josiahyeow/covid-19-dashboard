@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "^6.0.3",
     "novelcovid": "^1.2.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
