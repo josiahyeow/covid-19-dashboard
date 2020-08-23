@@ -63,7 +63,7 @@ const Curve = ({ history, mode }) => {
   if (data) {
     return (
       <ResponsiveContainer width={'100%'} height={'100%'}>
-        <LineChart data={data[mode]}>
+        <LineChart data={data[mode]} margin={{ left: 10 }}>
           <XAxis
             dataKey="name"
             label={{
@@ -74,7 +74,7 @@ const Curve = ({ history, mode }) => {
           />
           <YAxis
             label={{
-              value: 'Active cases',
+              value: 'Cases',
               angle: -90,
               position: 'insideBottomLeft',
               style: { fill: themeContext.color.palette.darkGrey },
